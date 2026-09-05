@@ -72,16 +72,67 @@
                     <p class="text-xs font-medium text-slate-500 mt-1">Configure profile branding, academic years, and system parameters.</p>
                 </div>
             </header>
+
+            <!-- Settings Form Card -->
+            <div class="bg-white rounded-2xl border border-slate-200/80 shadow-sm max-w-2xl p-6">
+                <h3 class="font-bold text-slate-800 text-sm mb-4 pb-3 border-b border-slate-100">General Configuration</h3>
+                <form id="settings-form" onsubmit="saveSettings(event)" class="space-y-4">
+                    <div>
+                        <label class="block text-[11px] font-semibold text-slate-600 mb-1">Academy / School Name</label>
+                        <input type="text" id="school-name" required class="w-full text-xs border border-slate-200 rounded-xl px-3 py-2.5 focus:outline-none focus:border-blue-500">
+                    </div>
+                    <div>
+                        <label class="block text-[11px] font-semibold text-slate-600 mb-1">Contact Email</label>
+                        <input type="email" id="school-email" class="w-full text-xs border border-slate-200 rounded-xl px-3 py-2.5 focus:outline-none focus:border-blue-500">
+                    </div>
+                    <div>
+                        <label class="block text-[11px] font-semibold text-slate-600 mb-1">Phone Number</label>
+                        <input type="text" id="school-phone" class="w-full text-xs border border-slate-200 rounded-xl px-3 py-2.5 focus:outline-none focus:border-blue-500">
+                    </div>
+                    <div>
+                        <label class="block text-[11px] font-semibold text-slate-600 mb-1">Academy Address</label>
+                        <textarea id="school-address" rows="3" class="w-full text-xs border border-slate-200 rounded-xl px-3 py-2.5 focus:outline-none focus:border-blue-500"></textarea>
+                    </div>
+                    <div class="pt-2 flex justify-end">
+                        <button type="submit" class="bg-blue-600 hover:bg-blue-700 text-white font-semibold text-xs px-5 py-2.5 rounded-xl shadow-sm transition">Save Changes</button>
+                    </div>
+                </form>
+            </div>
         </main>
     </div>
 
     <script>
         async function init() {
             const { data } = await supabaseClient.from('school_settings').select('*').eq('id', 1).single();
-            if (data && data.school_name) {
-                document.getElementById('sidebar-title').innerText = data.school_name;
+            if (data) {
+                if (data.school_name) {
+                    document.getElementById('sidebar-title').innerText = data.school_name;
+                    document.getElementById('school-name').value = data.school_name;
+                }
+                if (data.email) document.getElementById('school-email').value = data.email;
+                if (data.phone) document.getElementById('school-phone').value = data.phone;
+                if (data.address) document.getElementById('school-address').value = data.address;
             }
         }
+
+        async function saveSettings(event) {
+            event.preventDefault();
+            const payload = {
+                school_name: document.getElementById('school-name').value,
+                email: document.getElementById('school-email').value,
+                phone: document.getElementById('school-phone').value,
+                address: document.getElementById('school-address').value,
+            };
+
+            const { error } = await supabaseClient.from('school_settings').update(payload).eq('id', 1);
+            if (error) {
+                alert('Error updating settings: ' + error.message);
+            } else {
+                alert('Settings updated successfully!');
+                document.getElementById('sidebar-title').innerText = payload.school_name;
+            }
+        }
+
         init();
     </script>
 </body>
