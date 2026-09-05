@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard - School Management System</title>
+    <title>Dashboard - Al Arqam Academy</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script src="config.js"></script>
@@ -16,7 +16,7 @@
         <aside class="w-64 bg-slate-900 text-white flex flex-col justify-between shrink-0">
             <div class="p-5">
                 <div class="flex items-center space-x-3 mb-6">
-                    <img id="sidebar-logo" src="" class="w-8 h-8 object-contain rounded hidden">
+                    <img id="sidebar-logo" src="Academy Asset/Logo.jpg" alt="Academy Logo" class="w-9 h-9 object-contain rounded-md bg-white p-1" onerror="this.style.display='none'">
                     <h1 id="sidebar-title" class="text-lg font-bold tracking-wide truncate">Al Arqam Academy</h1>
                 </div>
                 
@@ -65,15 +65,13 @@
         async function loadDashboard() {
             const { data } = await supabaseClient.from('school_settings').select('*').eq('id', 1).single();
             if (data) {
-                document.getElementById('sidebar-title').innerText = data.school_name;
-                document.getElementById('header-school-name').innerText = data.school_name;
-                document.getElementById('header-address').innerText = `${data.address} | ${data.phone}`;
+                document.getElementById('sidebar-title').innerText = data.school_name || 'Al Arqam Academy';
+                document.getElementById('header-school-name').innerText = data.school_name || 'Al Arqam Academy';
+                document.getElementById('header-address').innerText = `${data.address || ''} | ${data.phone || ''}`;
                 document.getElementById('academic-year-display').innerText = data.academic_year || '2026-2027';
                 
-                if (data.logo_data) {
-                    const logoImg = document.getElementById('sidebar-logo');
-                    logoImg.src = data.logo_data;
-                    logoImg.classList.remove('hidden');
+                if (data.logo_data && data.logo_data.trim() !== '') {
+                    document.getElementById('sidebar-logo').src = data.logo_data;
                 }
             }
 
