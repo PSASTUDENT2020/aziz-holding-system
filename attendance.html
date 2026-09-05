@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Daily Attendance - Al Arqam Academy</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="config.js"></script>
+</head>
+<body class="bg-gray-50 font-sans">
+    <script>checkAuth();</script>
+
+    <div class="flex h-screen overflow-hidden">
+        <!-- Sidebar Navigation -->
+        <aside class="w-64 bg-slate-900 text-white flex flex-col justify-between shrink-0">
+            <div class="p-5">
+                <div class="flex items-center space-x-3 mb-6">
+                    <img id="sidebar-logo" src="Academy Asset/Logo.jpg" alt="Academy Logo" class="w-9 h-9 object-contain rounded-md bg-white p-1" onerror="this.style.display='none'">
+                    <h1 id="sidebar-title" class="text-lg font-bold tracking-wide truncate">Al Arqam Academy</h1>
+                </div>
+                
+                <nav class="space-y-1.5">
+                    <a href="index.html" class="block py-2.5 px-4 rounded text-slate-300 hover:bg-slate-800">Dashboard</a>
+                    <a href="students.html" class="block py-2.5 px-4 rounded text-slate-300 hover:bg-slate-800">Students</a>
+                    <a href="teachers.html" class="block py-2.5 px-4 rounded text-slate-300 hover:bg-slate-800">Teachers</a>
+                    <a href="attendance.html" class="block py-2.5 px-4 rounded bg-blue-600 text-white font-medium">Attendance</a>
+                    <a href="fees.html" class="block py-2.5 px-4 rounded text-slate-300 hover:bg-slate-800">Fees & Receipts</a>
+                    <a href="reports.html" class="block py-2.5 px-4 rounded text-slate-300 hover:bg-slate-800">Reports</a>
+                    <a href="settings.html" class="block py-2.5 px-4 rounded text-slate-300 hover:bg-slate-800">Settings</a>
+                </nav>
+            </div>
+            
+            <div class="p-5 border-t border-slate-800">
+                <button onclick="supabaseClient.auth.signOut().then(() => window.location.href='login.html')" class="w-full bg-red-600 text-sm py-2 rounded text-white hover:bg-red-700">Logout</button>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="flex-1 overflow-y-auto p-8">
+            <header class="flex justify-between items-center mb-6">
+                <div>
+                    <h2 class="text-2xl font-bold text-gray-800">Daily Attendance Register</h2>
+                    <p class="text-sm text-gray-500">Track daily presence for students and teaching staff.</p>
+                </div>
+                <div class="flex items-center space-x-3">
+                    <label class="text-xs font-semibold text-gray-600 uppercase">Select Date:</label>
+                    <input type="date" id="attendance-date" onchange="loadAttendance()" class="p-2 border rounded-md text-sm outline-none focus:ring-2 focus:ring-blue-500 bg-white">
+                </div>
+            </header>
+
+            <!-- Mode Tabs -->
+            <div class="flex border-b border-gray-200 mb-6">
+                <button id="tab-students" onclick="switchTab('students')" class="py-2.5 px-6 font-semibold text-sm border-b-2 border-blue-600 text-blue-600">Student Register</button>
+                <button id="tab-teachers" onclick="switchTab('teachers')" class="py-2.5 px-6 font-semibold text-sm text-gray-500 hover:text-gray-700">Teacher Register</button>
+            </div>
+
+            <!-- Controls Toolbar -->
+            <div class="flex justify-between items-center mb-4">
+                <div id="student-filters" class="flex gap-4">
+                    <select id="class-select" onchange="loadAttendance()" class="p-2 border rounded-md text-sm outline-none bg-white">
+                        <option value="">All Classes</option>
+                        <option value="Nursery">Nursery</option>
+                        <option value="Prep">Prep</option>
+                        <option value="Class 1">Class 1</option>
+                        <option value="Class 2">Class 2</option>
+                        <option value="Class 3">Class 3</option>
+                        <option value="Class 4">Class 4</option>
+                        <option value="Class 5">Class 5</option>
+                    </select>
+                </div>
+                <div class="space-x-2">
+                    <button onclick="markAll('Present')" class="bg-emerald-100 text-emerald-800 border border-emerald-300 px-3 py-1.5 rounded text-xs font-semibold hover:bg-emerald-200">Mark All Present</button>
+                    <button onclick="markAll('Absent')" class="bg-red-100 text-red-800 border border-red-300 px-3 py-1.5 rounded text-xs font-semibold hover:bg-red-200">Mark All Absent</button>
+                    <button onclick="saveAttendance()" class="bg-blue-600 text-white px-5 py-1.5 rounded text-xs font-semibold hover:bg-blue-700 shadow-sm">Save Register</button>
+                </div>
+            </div>
+
+            <!-- Table -->
+            <div class="bg-white rounded-lg shadow-sm border border-gray-200 overflow-hidden">
+                <table class="w-full text-left border-collapse">
+                    <thead class="bg-gray-100 text-xs font-semibold text-gray-600 uppercase">
+                        <tr>
+                            <th class="p-4">ID</th>
+                            <th class="p-4">Name</th>
+                            <th class="p-4" id="col-detail">Class</th>
+                            <th class="p-4 text-center">Status</th>
+                            <th class="p-4 text-center">Actions / Alerts</th>
+                        </tr>
+                    </thead>
+                    <tbody id="attendance-table-body" class="divide-y divide-gray-200 text-sm">
+                        <!-- Dynamic Records -->
+                    </tbody>
+                </table>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        let currentTab = 'students';
+        let schoolSettings = {};
+        let activeRecords = [];
+
+        async function init() {
+            document.getElementById('attendance-date').valueAsDate = new Date();
+            const { data } = await supabaseClient.from('school_settings').select('*').eq('id', 1).single();
+            if (data) {
+                schoolSettings = data;
+                document.getElementById('sidebar-title').innerText = data.school_name || 'Al Arqam Academy';
+                if (data.logo_data && data.logo_data.trim() !== '') {
+                    document.getElementById('sidebar-logo').src = data.logo_data;
+                }
+            }
+            loadAttendance();
+        }
+
+        function switchTab(tab) {
+            currentTab = tab;
+            const tabSt = document.getElementById('tab-students');
+            const tabTc = document.getElementById('tab-teachers');
+            const filters = document.getElementById('student-filters');
+            const colDetail = document.getElementById('col-detail');
+
+            if (tab === 'students') {
+                tabSt.className = "py-2.5 px-6 font-semibold text-sm border-b-2 border-blue-600 text-blue-600";
+                tabTc.className = "py-2.5 px-6 font-semibold text-sm text-gray-500 hover:text-gray-700";
+                filters.classList.remove('hidden');
+                colDetail.innerText = "Class";
+            } else {
+                tabTc.className = "py-2.5 px-6 font-semibold text-sm border-b-2 border-blue-600 text-blue-600";
+                tabSt.className = "py-2.5 px-6 font-semibold text-sm text-gray-500 hover:text-gray-700";
+                filters.classList.add('hidden');
+                colDetail.innerText = "Designation";
+            }
+            loadAttendance();
+        }
+
+        async function loadAttendance() {
+            const dateVal = document.getElementById('attendance-date').value;
+            const tbody = document.getElementById('attendance-table-body');
+            tbody.innerHTML = '';
+
+            if (currentTab === 'students') {
+                const classVal = document.getElementById('class-select').value;
+                let req = supabaseClient.from('students').select('*');
+                if (classVal) req = req.eq('class', classVal);
+                
+                const { data: students } = await req;
+                const { data: existing } = await supabaseClient.from('student_attendance').select('*').eq('date', dateVal);
+
+                const existingMap = {};
+                if (existing) existing.forEach(e => existingMap[e.student_id] = e.status);
+
+                activeRecords = students || [];
+                activeRecords.forEach(s => {
+                    const status = existingMap[s.id] || 'Present';
+                    const row = document.createElement('tr');
+                    row.innerHTML = `
+                        <td class="p-4 font-mono text-xs font-semibold text-gray-600">${s.student_id}</td>
+                        <td class="p-4 font-medium text-gray-900">${s.name}</td>
+                        <td class="p-4 text-gray-600">${s.class}</td>
+                        <td class="p-4 text-center">
+                            <select id="status-${s.id}" class="p-1.5 border rounded text-xs font-semibold outline-none focus:ring-2 focus:ring-blue-500">
+                                <option value="Present" ${status === 'Present' ? 'selected' : ''}>Present</option>
+                                <option value="Absent" ${status === 'Absent' ? 'selected' : ''}>Absent</option>
+                                <option value="Late" ${status === 'Late' ? 'selected' : ''}>Late</option>
+                                <option value="Leave" ${status === 'Leave' ? 'selected' : ''}>Leave</option>
+                            </select>
+                        </td>
+                        <td class="p-4 text-center">
+                            <button onclick="sendAbsenceAlert('${s.whatsapp}', '${s.name}')" class="bg-emerald-600 text-white text-xs px-2.5 py-1 rounded hover:bg-emerald-700">WhatsApp Alert</button>
+                        </td>
+                    `;
+                    tbody.appendChild(row);
+                });
+            } else {
+                const { data: teachers } = await supabaseClient.from('teachers').select('*').eq('status', 'Active');
+                const { data: existing } = await supabaseClient.from('teacher_attendance').select('*').eq('date', dateVal);
+
+                const existingMap = {};
+                if (existing) existing.forEach(e => existingMap[e.teacher_id] = e.status);
+
+                activeRecords = teachers || [];
+                activeRecords.forEach(t => {
+                    const status = existingMap[t.id] || 'Present';
+                    const row = document.createElement('tr');
+                    row.innerHTML = `
+                        <td class="p-4 font-mono text-xs font-semibold text-gray-600">${t.teacher_id}</td>
+                        <td class="p-4 font-medium text-gray-900">${t.name}</td>
+                        <td class="p-4 text-gray-600">${t.designation || 'Teacher'}</td>
+                        <td class="p-4 text-center">
+                            <select id="status-${t.id}" class="p-1.5 border rounded text-xs font-semibold outline-none focus:ring-2 focus:ring-blue-500">
+                                <option value="Present" ${status === 'Present' ? 'selected' : ''}>Present</option>
+                                <option value="Absent" ${status === 'Absent' ? 'selected' : ''}>Absent</option>
+                                <option value="Late" ${status === 'Late' ? 'selected' : ''}>Late</option>
+                                <option value="Leave" ${status === 'Leave' ? 'selected' : ''}>Leave</option>
+                            </select>
+                        </td>
+                        <td class="p-4 text-center text-xs text-gray-400">N/A</td>
+                    `;
+                    tbody.appendChild(row);
+                });
+            }
+        }
+
+        function markAll(status) {
+            activeRecords.forEach(item => {
+                const sel = document.getElementById(`status-${item.id}`);
+                if (sel) sel.value = status;
+            });
+        }
+
+        async function saveAttendance() {
+            const dateVal = document.getElementById('attendance-date').value;
+            const payload = [];
+
+            activeRecords.forEach(item => {
+                const statusVal = document.getElementById(`status-${item.id}`).value;
+                if (currentTab === 'students') {
+                    payload.push({
+                        date: dateVal,
+                        student_id: item.id,
+                        student_custom_id: item.student_id,
+                        student_name: item.name,
+                        class: item.class,
+                        status: statusVal
+                    });
+                } else {
+                    payload.push({
+                        date: dateVal,
+                        teacher_id: item.id,
+                        teacher_custom_id: item.teacher_id,
+                        teacher_name: item.name,
+                        status: statusVal
+                    });
+                }
+            });
+
+            const table = currentTab === 'students' ? 'student_attendance' : 'teacher_attendance';
+            const { error } = await supabaseClient.from(table).upsert(payload, { onConflict: currentTab === 'students' ? 'date,student_id' : 'date,teacher_id' });
+
+            if (error) {
+                alert('Error saving attendance: ' + error.message);
+            } else {
+                alert('Attendance register updated successfully!');
+            }
+        }
+
+        function sendAbsenceAlert(phone, name) {
+            if (!phone) {
+                alert('No WhatsApp phone number on file for this student.');
+                return;
+            }
+            const cleanPhone = phone.replace(/[^0-9]/g, '');
+            const dateVal = document.getElementById('attendance-date').value;
+            const msg = encodeURIComponent(`ABSENCE ALERT - ${schoolSettings.school_name || 'Al Arqam Academy'}\nDear Parent,\nThis is to notify you that ${name} was marked ABSENT on ${dateVal}.\nPlease contact the academy administration if this was unexpected.`);
+            window.open(`https://wa.me/${cleanPhone}?text=${msg}`, '_blank');
+        }
+
+        init();
+    </script>
+</body>
+</html>
