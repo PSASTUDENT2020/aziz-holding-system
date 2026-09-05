@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Settings - Al Arqam Academy</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="config.js"></script>
+</head>
+<body class="bg-gray-50 font-sans">
+    <script>checkAuth();</script>
+
+    <div class="flex h-screen overflow-hidden">
+        <!-- Sidebar Navigation -->
+        <aside class="w-64 bg-slate-900 text-white flex flex-col justify-between shrink-0">
+            <div class="p-5">
+                <div class="flex items-center space-x-3 mb-6">
+                    <img id="sidebar-logo" src="Academy Asset/Logo.jpg" alt="Academy Logo" class="w-9 h-9 object-contain rounded-md bg-white p-1" onerror="this.style.display='none'">
+                    <h1 id="sidebar-title" class="text-lg font-bold tracking-wide truncate">Al Arqam Academy</h1>
+                </div>
+                
+                <nav class="space-y-1.5">
+                    <a href="index.html" class="block py-2.5 px-4 rounded text-slate-300 hover:bg-slate-800">Dashboard</a>
+                    <a href="students.html" class="block py-2.5 px-4 rounded text-slate-300 hover:bg-slate-800">Students</a>
+                    <a href="teachers.html" class="block py-2.5 px-4 rounded text-slate-300 hover:bg-slate-800">Teachers</a>
+                    <a href="attendance.html" class="block py-2.5 px-4 rounded text-slate-300 hover:bg-slate-800">Attendance</a>
+                    <a href="fees.html" class="block py-2.5 px-4 rounded text-slate-300 hover:bg-slate-800">Fees & Receipts</a>
+                    <a href="reports.html" class="block py-2.5 px-4 rounded text-slate-300 hover:bg-slate-800">Reports</a>
+                    <a href="settings.html" class="block py-2.5 px-4 rounded bg-blue-600 text-white font-medium">Settings</a>
+                </nav>
+            </div>
+            
+            <div class="p-5 border-t border-slate-800">
+                <button onclick="supabaseClient.auth.signOut().then(() => window.location.href='login.html')" class="w-full bg-red-600 text-sm py-2 rounded text-white hover:bg-red-700">Logout</button>
+            </div>
+        </aside>
+
+        <!-- Settings Main -->
+        <main class="flex-1 overflow-y-auto p-8">
+            <header class="border-b pb-4 mb-6">
+                <h2 class="text-2xl font-bold text-gray-800">Academy Settings</h2>
+                <p class="text-sm text-gray-500">Update logo, academy name, contact details, and system defaults.</p>
+            </header>
+
+            <div id="alert-box" class="hidden p-4 mb-6 rounded-md text-sm font-medium"></div>
+
+            <form id="settings-form" class="bg-white p-6 rounded-lg shadow-sm border border-gray-200 max-w-3xl space-y-6">
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">Academy Logo</label>
+                    <div class="flex items-center space-x-6">
+                        <div class="w-24 h-24 border-2 border-dashed border-gray-300 rounded-lg flex items-center justify-center bg-gray-50 overflow-hidden p-1">
+                            <img id="logo-preview" src="Academy Asset/Logo.jpg" class="w-full h-full object-contain" />
+                        </div>
+                        <div>
+                            <input type="file" id="logo-input" accept="image/*" class="text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100">
+                            <p class="text-xs text-gray-400 mt-1">Upload to override default static logo image (Max 1 MB).</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700">Academy Name</label>
+                        <input type="text" id="school_name" required class="w-full mt-1 p-2 border rounded-md focus:ring-2 focus:ring-blue-500 outline-none">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700">Academic Year</label>
+                        <input type="text" id="academic_year" required class="w-full mt-1 p-2 border rounded-md focus:ring-2 focus:ring-blue-500 outline-none">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700">Phone Number</label>
+                        <input type="text" id="phone" required class="w-full mt-1 p-2 border rounded-md focus:ring-2 focus:ring-blue-500 outline-none">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700">Email Address</label>
+                        <input type="email" id="email" required class="w-full mt-1 p-2 border rounded-md focus:ring-2 focus:ring-blue-500 outline-none">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700">Currency Symbol</label>
+                        <input type="text" id="currency" required class="w-full mt-1 p-2 border rounded-md focus:ring-2 focus:ring-blue-500 outline-none">
+                    </div>
+                    <div class="md:col-span-2">
+                        <label class="block text-sm font-medium text-gray-700">Campus Address</label>
+                        <textarea id="address" rows="2" required class="w-full mt-1 p-2 border rounded-md focus:ring-2 focus:ring-blue-500 outline-none"></textarea>
+                    </div>
+                </div>
+
+                <div class="pt-4 border-t flex justify-end">
+                    <button type="submit" class="bg-blue-600 text-white px-6 py-2.5 rounded-md hover:bg-blue-700 font-semibold shadow-sm">Save Changes</button>
+                </div>
+            </form>
+        </main>
+    </div>
+
+    <script>
+        let encodedLogo = '';
+
+        async function loadSettings() {
+            const { data } = await supabaseClient.from('school_settings').select('*').eq('id', 1).single();
+            if (data) {
+                document.getElementById('school_name').value = data.school_name || '';
+                document.getElementById('academic_year').value = data.academic_year || '';
+                document.getElementById('phone').value = data.phone || '';
+                document.getElementById('email').value = data.email || '';
+                document.getElementById('currency').value = data.currency || '';
+                document.getElementById('address').value = data.address || '';
+                document.getElementById('sidebar-title').innerText = data.school_name || 'Al Arqam Academy';
+                
+                if (data.logo_data && data.logo_data.trim() !== '') {
+                    encodedLogo = data.logo_data;
+                    document.getElementById('logo-preview').src = data.logo_data;
+                    document.getElementById('sidebar-logo').src = data.logo_data;
+                }
+            }
+        }
+
+        document.getElementById('logo-input').addEventListener('change', function(e) {
+            const file = e.target.files[0];
+            if (file) {
+                if (file.size > 1024 * 1024) {
+                    showAlert('File size must be under 1 MB', false);
+                    return;
+                }
+                const reader = new FileReader();
+                reader.onload = function(event) {
+                    encodedLogo = event.target.result;
+                    document.getElementById('logo-preview').src = encodedLogo;
+                };
+                reader.readAsDataURL(file);
+            }
+        });
+
+        document.getElementById('settings-form').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const payload = {
+                id: 1,
+                school_name: document.getElementById('school_name').value,
+                academic_year: document.getElementById('academic_year').value,
+                phone: document.getElementById('phone').value,
+                email: document.getElementById('email').value,
+                currency: document.getElementById('currency').value,
+                address: document.getElementById('address').value,
+                logo_data: encodedLogo,
+                updated_at: new Date().toISOString()
+            };
+
+            const { error } = await supabaseClient.from('school_settings').upsert(payload);
+            if (error) {
+                showAlert('Failed to save: ' + error.message, false);
+            } else {
+                showAlert('Settings updated successfully!', true);
+                loadSettings();
+            }
+        });
+
+        function showAlert(msg, isSuccess) {
+            const box = document.getElementById('alert-box');
+            box.innerText = msg;
+            box.className = `p-4 mb-6 rounded-md text-sm font-medium ${isSuccess ? 'bg-green-100 text-green-800 border border-green-300' : 'bg-red-100 text-red-800 border border-red-300'}`;
+            box.classList.remove('hidden');
+        }
+
+        loadSettings();
+    </script>
+</body>
+</html>
