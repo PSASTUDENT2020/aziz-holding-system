@@ -16,72 +16,95 @@
         }
     </style>
 </head>
-<body class="bg-gray-50 font-sans">
+<body class="bg-slate-50 font-sans text-slate-800">
     <script>checkAuth();</script>
 
     <div class="flex h-screen overflow-hidden">
         <!-- Sidebar Navigation -->
-        <aside class="w-64 bg-slate-900 text-white flex flex-col justify-between shrink-0 no-print">
+        <aside class="w-64 bg-slate-900 text-white flex flex-col justify-between shrink-0 shadow-xl border-r border-slate-800 no-print">
             <div class="p-5">
-                <div class="flex items-center space-x-3 mb-6">
-                    <img id="sidebar-logo" src="Academy Asset/Logo.jpg" alt="Academy Logo" class="w-9 h-9 object-contain rounded-md bg-white p-1" onerror="this.style.display='none'">
-                    <h1 id="sidebar-title" class="text-lg font-bold tracking-wide truncate">Al Arqam Academy</h1>
+                <div class="flex items-center space-x-3 mb-8 bg-slate-800/60 p-3 rounded-xl border border-slate-700/50">
+                    <img id="sidebar-logo" src="Academy Asset/Logo.jpg" alt="Academy Logo" class="w-10 h-10 object-contain rounded-lg bg-white p-1 shadow-md" onerror="this.style.display='none'">
+                    <div>
+                        <h1 id="sidebar-title" class="text-base font-bold tracking-wide text-white truncate max-w-[130px]">Al Arqam Academy</h1>
+                        <span class="text-[10px] text-emerald-400 font-semibold bg-emerald-500/10 px-2 py-0.5 rounded-full border border-emerald-500/20">Active Portal</span>
+                    </div>
                 </div>
                 
                 <nav class="space-y-1.5">
-                    <a href="index.html" class="block py-2.5 px-4 rounded text-slate-300 hover:bg-slate-800">Dashboard</a>
-                    <a href="students.html" class="block py-2.5 px-4 rounded text-slate-300 hover:bg-slate-800">Students</a>
-                    <a href="teachers.html" class="block py-2.5 px-4 rounded text-slate-300 hover:bg-slate-800">Teachers</a>
-                    <a href="attendance.html" class="block py-2.5 px-4 rounded text-slate-300 hover:bg-slate-800">Attendance</a>
-                    <a href="fees.html" class="block py-2.5 px-4 rounded text-slate-300 hover:bg-slate-800">Fees & Receipts</a>
-                    <a href="reports.html" class="block py-2.5 px-4 rounded bg-blue-600 text-white font-medium">Reports</a>
-                    <a href="settings.html" class="block py-2.5 px-4 rounded text-slate-300 hover:bg-slate-800">Settings</a>
+                    <a href="index.html" class="flex items-center space-x-3 py-2.5 px-4 rounded-lg text-slate-300 hover:bg-slate-800 hover:text-white transition">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 00-1-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"></path></svg>
+                        <span>Dashboard</span>
+                    </a>
+                    <a href="students.html" class="flex items-center space-x-3 py-2.5 px-4 rounded-lg text-slate-300 hover:bg-slate-800 hover:text-white transition">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"></path></svg>
+                        <span>Students</span>
+                    </a>
+                    <a href="teachers.html" class="flex items-center space-x-3 py-2.5 px-4 rounded-lg text-slate-300 hover:bg-slate-800 hover:text-white transition">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9a2 2 0 00-2-2h-2m-4-3H9M7 16h6M7 8h6v4H7V8z"></path></svg>
+                        <span>Teachers</span>
+                    </a>
+                    <a href="attendance.html" class="flex items-center space-x-3 py-2.5 px-4 rounded-lg text-slate-300 hover:bg-slate-800 hover:text-white transition">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"></path></svg>
+                        <span>Attendance</span>
+                    </a>
+                    <a href="fees.html" class="flex items-center space-x-3 py-2.5 px-4 rounded-lg text-slate-300 hover:bg-slate-800 hover:text-white transition">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 9V7a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2m2 4h10a2 2 0 002-2v-6a2 2 0 00-2-2H9a2 2 0 00-2 2v6a2 2 0 002 2zm7-5a2 2 0 11-4 0 2 2 0 014 0z"></path></svg>
+                        <span>Fees & Receipts</span>
+                    </a>
+                    <a href="reports.html" class="flex items-center space-x-3 py-2.5 px-4 rounded-lg bg-gradient-to-r from-blue-600 to-indigo-600 text-white font-medium shadow-md">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path></svg>
+                        <span>Reports</span>
+                    </a>
+                    <a href="settings.html" class="flex items-center space-x-3 py-2.5 px-4 rounded-lg text-slate-300 hover:bg-slate-800 hover:text-white transition">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"></path></svg>
+                        <span>Settings</span>
+                    </a>
                 </nav>
             </div>
             
-            <div class="p-5 border-t border-slate-800">
-                <button onclick="supabaseClient.auth.signOut().then(() => window.location.href='login.html')" class="w-full bg-red-600 text-sm py-2 rounded text-white hover:bg-red-700">Logout</button>
+            <div class="p-5 border-t border-slate-800 bg-slate-950/40">
+                <button onclick="supabaseClient.auth.signOut().then(() => window.location.href='login.html')" class="w-full bg-rose-600/20 hover:bg-rose-600 text-rose-300 hover:text-white border border-rose-500/30 text-xs py-2.5 rounded-lg transition font-medium">Sign Out</button>
             </div>
         </aside>
 
         <!-- Main Content Area -->
         <main id="report-print-area" class="flex-1 overflow-y-auto p-8">
-            <header class="flex justify-between items-center mb-6">
+            <header class="flex justify-between items-center mb-6 bg-white p-6 rounded-2xl border border-slate-200/80 shadow-sm">
                 <div>
-                    <h2 class="text-2xl font-bold text-gray-800">Academy Executive Reports</h2>
-                    <p class="text-sm text-gray-500">Financial collections, outstanding dues, and attendance metrics.</p>
+                    <h2 class="text-2xl font-black text-slate-900 tracking-tight">Executive Reports & Audits</h2>
+                    <p class="text-xs font-medium text-slate-500 mt-1">Financial recovery metrics, pending dues, and presence averages.</p>
                 </div>
-                <button onclick="window.print()" class="no-print bg-slate-800 text-white px-4 py-2 rounded-md hover:bg-slate-900 font-medium text-sm">Print Report Summary</button>
+                <button onclick="window.print()" class="no-print bg-slate-900 hover:bg-slate-800 text-white px-5 py-2.5 rounded-xl font-bold text-sm shadow-md transition">Print Executive Summary</button>
             </header>
 
-            <!-- Financial Cards -->
+            <!-- Cards -->
             <div class="grid grid-cols-1 md:grid-cols-4 gap-4 mb-8">
-                <div class="bg-white p-5 rounded-lg border border-gray-200 shadow-sm">
-                    <p class="text-xs font-semibold uppercase text-gray-400">Total Billed</p>
-                    <p id="total-billed" class="text-2xl font-bold text-gray-800 mt-1">PKR 0</p>
+                <div class="bg-white p-5 rounded-2xl border border-slate-200/80 shadow-sm">
+                    <p class="text-[11px] font-bold uppercase tracking-wider text-slate-400">Total Billed</p>
+                    <p id="total-billed" class="text-2xl font-black text-slate-900 mt-1">PKR 0</p>
                 </div>
-                <div class="bg-white p-5 rounded-lg border border-emerald-200 shadow-sm bg-emerald-50/30">
-                    <p class="text-xs font-semibold uppercase text-emerald-600">Total Collected</p>
-                    <p id="total-collected" class="text-2xl font-bold text-emerald-700 mt-1">PKR 0</p>
+                <div class="bg-emerald-50/50 p-5 rounded-2xl border border-emerald-200 shadow-sm">
+                    <p class="text-[11px] font-bold uppercase tracking-wider text-emerald-700">Total Collected</p>
+                    <p id="total-collected" class="text-2xl font-black text-emerald-700 mt-1">PKR 0</p>
                 </div>
-                <div class="bg-white p-5 rounded-lg border border-red-200 shadow-sm bg-red-50/30">
-                    <p class="text-xs font-semibold uppercase text-red-600">Total Pending Dues</p>
-                    <p id="total-pending" class="text-2xl font-bold text-red-700 mt-1">PKR 0</p>
+                <div class="bg-rose-50/50 p-5 rounded-2xl border border-rose-200 shadow-sm">
+                    <p class="text-[11px] font-bold uppercase tracking-wider text-rose-700">Pending Dues</p>
+                    <p id="total-pending" class="text-2xl font-black text-rose-700 mt-1">PKR 0</p>
                 </div>
-                <div class="bg-white p-5 rounded-lg border border-blue-200 shadow-sm bg-blue-50/30">
-                    <p class="text-xs font-semibold uppercase text-blue-600">Recovery Rate</p>
-                    <p id="recovery-rate" class="text-2xl font-bold text-blue-700 mt-1">0%</p>
+                <div class="bg-blue-50/50 p-5 rounded-2xl border border-blue-200 shadow-sm">
+                    <p class="text-[11px] font-bold uppercase tracking-wider text-blue-700">Recovery Rate</p>
+                    <p id="recovery-rate" class="text-2xl font-black text-blue-700 mt-1">0%</p>
                 </div>
             </div>
 
             <!-- Detailed Breakdowns -->
             <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
-                <!-- Defaulters List -->
-                <div class="bg-white rounded-lg border border-gray-200 shadow-sm p-6">
-                    <h3 class="text-base font-bold text-gray-800 mb-4 border-b pb-2">Pending Fee Defaulters</h3>
+                <div class="bg-white rounded-2xl border border-slate-200/80 shadow-sm p-6">
+                    <h3 class="text-base font-bold text-slate-800 mb-4 border-b pb-3">Outstanding Fee Defaulters</h3>
                     <div class="overflow-x-auto">
                         <table class="w-full text-left text-xs">
-                            <thead class="bg-gray-100 font-semibold text-gray-600 uppercase">
+                            <thead class="bg-slate-50 font-bold text-slate-400 uppercase tracking-wider">
                                 <tr>
                                     <th class="p-3">Student</th>
                                     <th class="p-3">Period</th>
@@ -89,27 +112,25 @@
                                     <th class="p-3 text-center no-print">Action</th>
                                 </tr>
                             </thead>
-                            <tbody id="defaulter-table-body" class="divide-y divide-gray-100">
-                                <!-- Dynamic Defaulters -->
+                            <tbody id="defaulter-table-body" class="divide-y divide-slate-100">
+                                <!-- Dynamic Content -->
                             </tbody>
                         </table>
                     </div>
                 </div>
 
-                <!-- Monthly Attendance Summary -->
-                <div class="bg-white rounded-lg border border-gray-200 shadow-sm p-6">
-                    <h3 class="text-base font-bold text-gray-800 mb-4 border-b pb-2">Attendance Overview</h3>
+                <div class="bg-white rounded-2xl border border-slate-200/80 shadow-sm p-6">
+                    <h3 class="text-base font-bold text-slate-800 mb-4 border-b pb-3">Presence Averages Today</h3>
                     <div class="grid grid-cols-2 gap-4 mb-4">
-                        <div class="p-4 bg-gray-50 rounded border text-center">
-                            <p class="text-xs text-gray-500 font-medium">Student Attendance Today</p>
-                            <p id="student-attendance-rate" class="text-2xl font-bold text-gray-800 mt-1">0%</p>
+                        <div class="p-4 bg-slate-50 rounded-xl border border-slate-100 text-center">
+                            <p class="text-xs text-slate-500 font-bold">Students Present</p>
+                            <p id="student-attendance-rate" class="text-3xl font-black text-slate-800 mt-1">0%</p>
                         </div>
-                        <div class="p-4 bg-gray-50 rounded border text-center">
-                            <p class="text-xs text-gray-500 font-medium">Staff Attendance Today</p>
-                            <p id="teacher-attendance-rate" class="text-2xl font-bold text-gray-800 mt-1">0%</p>
+                        <div class="p-4 bg-slate-50 rounded-xl border border-slate-100 text-center">
+                            <p class="text-xs text-slate-500 font-bold">Faculty Present</p>
+                            <p id="teacher-attendance-rate" class="text-3xl font-black text-slate-800 mt-1">0%</p>
                         </div>
                     </div>
-                    <p class="text-xs text-gray-400 text-center">Calculated based on daily register entries recorded in the system.</p>
                 </div>
             </div>
         </main>
@@ -135,10 +156,7 @@
             const { data: fees } = await supabaseClient.from('student_fees').select('*');
             const curr = schoolSettings.currency || 'PKR';
 
-            let totalBilled = 0;
-            let totalCollected = 0;
-            let totalPending = 0;
-
+            let totalBilled = 0, totalCollected = 0, totalPending = 0;
             const tbody = document.getElementById('defaulter-table-body');
             tbody.innerHTML = '';
 
@@ -150,12 +168,13 @@
 
                     if (f.pending_amount > 0) {
                         const row = document.createElement('tr');
+                        row.className = "hover:bg-slate-50 transition";
                         row.innerHTML = `
-                            <td class="p-3 font-medium text-gray-800">${f.student_name}</td>
-                            <td class="p-3 text-gray-500">${f.fee_month}</td>
-                            <td class="p-3 font-mono font-bold text-red-600">${curr} ${f.pending_amount}</td>
+                            <td class="p-3 font-bold text-slate-800">${f.student_name}</td>
+                            <td class="p-3 text-slate-500 font-medium">${f.fee_month}</td>
+                            <td class="p-3 font-mono font-bold text-rose-600">${curr} ${f.pending_amount}</td>
                             <td class="p-3 text-center no-print">
-                                <button onclick="sendReminder('${f.student_name}', '${f.fee_month}', ${f.pending_amount})" class="bg-red-600 text-white text-xs px-2 py-1 rounded hover:bg-red-700">Remind</button>
+                                <button onclick="sendReminder('${f.student_name}', '${f.fee_month}', ${f.pending_amount})" class="bg-rose-500 hover:bg-rose-600 text-white text-xs px-2.5 py-1 rounded-lg font-bold transition">Remind</button>
                             </td>
                         `;
                         tbody.appendChild(row);
@@ -164,7 +183,6 @@
             }
 
             const recoveryRate = totalBilled > 0 ? Math.round((totalCollected / totalBilled) * 100) : 0;
-
             document.getElementById('total-billed').innerText = `${curr} ${totalBilled.toLocaleString()}`;
             document.getElementById('total-collected').innerText = `${curr} ${totalCollected.toLocaleString()}`;
             document.getElementById('total-pending').innerText = `${curr} ${totalPending.toLocaleString()}`;
@@ -174,26 +192,22 @@
         async function loadAttendanceStats() {
             const today = new Date().toISOString().split('T')[0];
 
-            // Students
             const { data: stAtt } = await supabaseClient.from('student_attendance').select('status').eq('date', today);
             if (stAtt && stAtt.length > 0) {
                 const present = stAtt.filter(a => a.status === 'Present').length;
-                const rate = Math.round((present / stAtt.length) * 100);
-                document.getElementById('student-attendance-rate').innerText = `${rate}%`;
+                document.getElementById('student-attendance-rate').innerText = `${Math.round((present / stAtt.length) * 100)}%`;
             }
 
-            // Teachers
             const { data: tcAtt } = await supabaseClient.from('teacher_attendance').select('status').eq('date', today);
             if (tcAtt && tcAtt.length > 0) {
                 const present = tcAtt.filter(a => a.status === 'Present').length;
-                const rate = Math.round((present / tcAtt.length) * 100);
-                document.getElementById('teacher-attendance-rate').innerText = `${rate}%`;
+                document.getElementById('teacher-attendance-rate').innerText = `${Math.round((present / tcAtt.length) * 100)}%`;
             }
         }
 
         function sendReminder(studentName, month, pending) {
             const curr = schoolSettings.currency || 'PKR';
-            const msg = encodeURIComponent(`ACADEMY FEE REMINDER - ${schoolSettings.school_name || 'Al Arqam Academy'}\nDear Parent,\nThis is an urgent notice regarding pending fees for ${studentName} for ${month}.\nOutstanding Amount: ${curr} ${pending}.\nPlease visit the office to settle the account.`);
+            const msg = encodeURIComponent(`FEE REMINDER - ${schoolSettings.school_name || 'Al Arqam Academy'}\nDear Parent,\nThis is a notice regarding pending fee for ${studentName} (${month}). Amount: ${curr} ${pending}.`);
             window.open(`https://wa.me/?text=${msg}`, '_blank');
         }
 
