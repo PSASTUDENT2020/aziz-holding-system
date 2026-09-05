@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - School Management System</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="config.js"></script>
+</head>
+<body class="bg-gray-50 font-sans">
+    <script>checkAuth();</script>
+
+    <div class="flex h-screen overflow-hidden">
+        <!-- Sidebar Navigation -->
+        <aside class="w-64 bg-slate-900 text-white flex flex-col justify-between shrink-0">
+            <div class="p-5">
+                <div class="flex items-center space-x-3 mb-6">
+                    <img id="sidebar-logo" src="" class="w-8 h-8 object-contain rounded hidden">
+                    <h1 id="sidebar-title" class="text-lg font-bold tracking-wide truncate">Al Arqam Academy</h1>
+                </div>
+                
+                <nav class="space-y-1.5">
+                    <a href="index.html" class="block py-2.5 px-4 rounded bg-blue-600 text-white font-medium">Dashboard</a>
+                    <a href="students.html" class="block py-2.5 px-4 rounded text-slate-300 hover:bg-slate-800">Students</a>
+                    <a href="teachers.html" class="block py-2.5 px-4 rounded text-slate-300 hover:bg-slate-800">Teachers</a>
+                    <a href="attendance.html" class="block py-2.5 px-4 rounded text-slate-300 hover:bg-slate-800">Attendance</a>
+                    <a href="fees.html" class="block py-2.5 px-4 rounded text-slate-300 hover:bg-slate-800">Fees & Receipts</a>
+                    <a href="reports.html" class="block py-2.5 px-4 rounded text-slate-300 hover:bg-slate-800">Reports</a>
+                    <a href="settings.html" class="block py-2.5 px-4 rounded text-slate-300 hover:bg-slate-800">Settings</a>
+                </nav>
+            </div>
+            
+            <div class="p-5 border-t border-slate-800">
+                <button onclick="supabaseClient.auth.signOut().then(() => window.location.href='login.html')" class="w-full bg-red-600 text-sm py-2 rounded text-white hover:bg-red-700">Logout</button>
+            </div>
+        </aside>
+
+        <!-- Main Dashboard Content -->
+        <main class="flex-1 overflow-y-auto p-8">
+            <header class="border-b pb-4 mb-6">
+                <h2 id="header-school-name" class="text-2xl font-bold text-gray-800">Al Arqam Academy</h2>
+                <p id="header-address" class="text-sm text-gray-500">Zubaida park near Hamiyat e Islam School, Lahore | 03104241477</p>
+            </header>
+
+            <!-- Metrics -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+                <div class="bg-white p-6 rounded-lg shadow-sm border border-gray-200">
+                    <p class="text-sm font-medium text-gray-500">Total Enrolled Students</p>
+                    <p id="total-students" class="text-3xl font-bold text-gray-800 mt-2">0</p>
+                </div>
+                <div class="bg-white p-6 rounded-lg shadow-sm border border-gray-200">
+                    <p class="text-sm font-medium text-gray-500">Active Teachers</p>
+                    <p id="total-teachers" class="text-3xl font-bold text-blue-600 mt-2">0</p>
+                </div>
+                <div class="bg-white p-6 rounded-lg shadow-sm border border-gray-200">
+                    <p class="text-sm font-medium text-gray-500">Academic Year</p>
+                    <p id="academic-year-display" class="text-3xl font-bold text-emerald-600 mt-2">2026-2027</p>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        async function loadDashboard() {
+            const { data } = await supabaseClient.from('school_settings').select('*').eq('id', 1).single();
+            if (data) {
+                document.getElementById('sidebar-title').innerText = data.school_name;
+                document.getElementById('header-school-name').innerText = data.school_name;
+                document.getElementById('header-address').innerText = `${data.address} | ${data.phone}`;
+                document.getElementById('academic-year-display').innerText = data.academic_year || '2026-2027';
+                
+                if (data.logo_data) {
+                    const logoImg = document.getElementById('sidebar-logo');
+                    logoImg.src = data.logo_data;
+                    logoImg.classList.remove('hidden');
+                }
+            }
+
+            const { count: studentCount } = await supabaseClient.from('students').select('*', { count: 'exact', head: true });
+            document.getElementById('total-students').innerText = studentCount || 0;
+        }
+
+        loadDashboard();
+    </script>
+</body>
+</html>
