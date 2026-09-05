@@ -4,7 +4,7 @@ const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBh
 
 const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
-// Auth Guard Function for protected pages
+// Authentication Guard for protected pages
 async function checkAuth() {
     const { data: { session } } = await supabaseClient.auth.getSession();
     if (!session && !window.location.pathname.endsWith('login.html')) {
