@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - School Management System</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="config.js"></script>
+</head>
+<body class="bg-gray-100 flex items-center justify-center h-screen">
+    <div class="bg-white p-8 rounded-lg shadow-md w-96">
+        <h2 id="login-title" class="text-2xl font-bold text-center text-gray-800 mb-2">Al Arqam Academy</h2>
+        <p class="text-sm text-center text-gray-500 mb-6">Admin Management Portal</p>
+        
+        <div id="error-msg" class="hidden bg-red-100 border border-red-400 text-red-700 px-4 py-2 rounded mb-4 text-sm"></div>
+
+        <form id="login-form" class="space-y-4">
+            <div>
+                <label class="block text-sm font-medium text-gray-700">Admin Email</label>
+                <input type="email" id="email" required class="w-full mt-1 p-2 border rounded-md focus:ring-2 focus:ring-blue-500 outline-none">
+            </div>
+            <div>
+                <label class="block text-sm font-medium text-gray-700">Password</label>
+                <input type="password" id="password" required class="w-full mt-1 p-2 border rounded-md focus:ring-2 focus:ring-blue-500 outline-none">
+            </div>
+            <button type="submit" class="w-full bg-blue-600 text-white py-2 rounded-md hover:bg-blue-700 font-semibold transition">Sign In</button>
+        </form>
+    </div>
+
+    <script>
+        async function loadBrandName() {
+            const { data } = await supabaseClient.from('school_settings').select('school_name').eq('id', 1).single();
+            if (data && data.school_name) {
+                document.getElementById('login-title').innerText = data.school_name;
+            }
+        }
+
+        document.getElementById('login-form').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+            const errorMsg = document.getElementById('error-msg');
+
+            const { data, error } = await supabaseClient.auth.signInWithPassword({ email, password });
+
+            if (error) {
+                errorMsg.innerText = error.message;
+                errorMsg.classList.remove('hidden');
+            } else {
+                window.location.href = 'index.html';
+            }
+        });
+
+        loadBrandName();
+    </script>
+</body>
+</html> 
