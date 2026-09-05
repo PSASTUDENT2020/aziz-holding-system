@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reports & Analytics - Al Arqam Academy</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="config.js"></script>
+    <style>
+        @media print {
+            body * { visibility: hidden; }
+            #report-print-area, #report-print-area * { visibility: visible; }
+            #report-print-area { position: absolute; left: 0; top: 0; width: 100%; }
+            .no-print { display: none !important; }
+        }
+    </style>
+</head>
+<body class="bg-gray-50 font-sans">
+    <script>checkAuth();</script>
+
+    <div class="flex h-screen overflow-hidden">
+        <!-- Sidebar Navigation -->
+        <aside class="w-64 bg-slate-900 text-white flex flex-col justify-between shrink-0 no-print">
+            <div class="p-5">
+                <div class="flex items-center space-x-3 mb-6">
+                    <img id="sidebar-logo" src="Academy Asset/Logo.jpg" alt="Academy Logo" class="w-9 h-9 object-contain rounded-md bg-white p-1" onerror="this.style.display='none'">
+                    <h1 id="sidebar-title" class="text-lg font-bold tracking-wide truncate">Al Arqam Academy</h1>
+                </div>
+                
+                <nav class="space-y-1.5">
+                    <a href="index.html" class="block py-2.5 px-4 rounded text-slate-300 hover:bg-slate-800">Dashboard</a>
+                    <a href="students.html" class="block py-2.5 px-4 rounded text-slate-300 hover:bg-slate-800">Students</a>
+                    <a href="teachers.html" class="block py-2.5 px-4 rounded text-slate-300 hover:bg-slate-800">Teachers</a>
+                    <a href="attendance.html" class="block py-2.5 px-4 rounded text-slate-300 hover:bg-slate-800">Attendance</a>
+                    <a href="fees.html" class="block py-2.5 px-4 rounded text-slate-300 hover:bg-slate-800">Fees & Receipts</a>
+                    <a href="reports.html" class="block py-2.5 px-4 rounded bg-blue-600 text-white font-medium">Reports</a>
+                    <a href="settings.html" class="block py-2.5 px-4 rounded text-slate-300 hover:bg-slate-800">Settings</a>
+                </nav>
+            </div>
+            
+            <div class="p-5 border-t border-slate-800">
+                <button onclick="supabaseClient.auth.signOut().then(() => window.location.href='login.html')" class="w-full bg-red-600 text-sm py-2 rounded text-white hover:bg-red-700">Logout</button>
+            </div>
+        </aside>
+
+        <!-- Main Content Area -->
+        <main id="report-print-area" class="flex-1 overflow-y-auto p-8">
+            <header class="flex justify-between items-center mb-6">
+                <div>
+                    <h2 class="text-2xl font-bold text-gray-800">Academy Executive Reports</h2>
+                    <p class="text-sm text-gray-500">Financial collections, outstanding dues, and attendance metrics.</p>
+                </div>
+                <button onclick="window.print()" class="no-print bg-slate-800 text-white px-4 py-2 rounded-md hover:bg-slate-900 font-medium text-sm">Print Report Summary</button>
+            </header>
+
+            <!-- Financial Cards -->
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-4 mb-8">
+                <div class="bg-white p-5 rounded-lg border border-gray-200 shadow-sm">
+                    <p class="text-xs font-semibold uppercase text-gray-400">Total Billed</p>
+                    <p id="total-billed" class="text-2xl font-bold text-gray-800 mt-1">PKR 0</p>
+                </div>
+                <div class="bg-white p-5 rounded-lg border border-emerald-200 shadow-sm bg-emerald-50/30">
+                    <p class="text-xs font-semibold uppercase text-emerald-600">Total Collected</p>
+                    <p id="total-collected" class="text-2xl font-bold text-emerald-700 mt-1">PKR 0</p>
+                </div>
+                <div class="bg-white p-5 rounded-lg border border-red-200 shadow-sm bg-red-50/30">
+                    <p class="text-xs font-semibold uppercase text-red-600">Total Pending Dues</p>
+                    <p id="total-pending" class="text-2xl font-bold text-red-700 mt-1">PKR 0</p>
+                </div>
+                <div class="bg-white p-5 rounded-lg border border-blue-200 shadow-sm bg-blue-50/30">
+                    <p class="text-xs font-semibold uppercase text-blue-600">Recovery Rate</p>
+                    <p id="recovery-rate" class="text-2xl font-bold text-blue-700 mt-1">0%</p>
+                </div>
+            </div>
+
+            <!-- Detailed Breakdowns -->
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                <!-- Defaulters List -->
+                <div class="bg-white rounded-lg border border-gray-200 shadow-sm p-6">
+                    <h3 class="text-base font-bold text-gray-800 mb-4 border-b pb-2">Pending Fee Defaulters</h3>
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-left text-xs">
+                            <thead class="bg-gray-100 font-semibold text-gray-600 uppercase">
+                                <tr>
+                                    <th class="p-3">Student</th>
+                                    <th class="p-3">Period</th>
+                                    <th class="p-3">Pending</th>
+                                    <th class="p-3 text-center no-print">Action</th>
+                                </tr>
+                            </thead>
+                            <tbody id="defaulter-table-body" class="divide-y divide-gray-100">
+                                <!-- Dynamic Defaulters -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- Monthly Attendance Summary -->
+                <div class="bg-white rounded-lg border border-gray-200 shadow-sm p-6">
+                    <h3 class="text-base font-bold text-gray-800 mb-4 border-b pb-2">Attendance Overview</h3>
+                    <div class="grid grid-cols-2 gap-4 mb-4">
+                        <div class="p-4 bg-gray-50 rounded border text-center">
+                            <p class="text-xs text-gray-500 font-medium">Student Attendance Today</p>
+                            <p id="student-attendance-rate" class="text-2xl font-bold text-gray-800 mt-1">0%</p>
+                        </div>
+                        <div class="p-4 bg-gray-50 rounded border text-center">
+                            <p class="text-xs text-gray-500 font-medium">Staff Attendance Today</p>
+                            <p id="teacher-attendance-rate" class="text-2xl font-bold text-gray-800 mt-1">0%</p>
+                        </div>
+                    </div>
+                    <p class="text-xs text-gray-400 text-center">Calculated based on daily register entries recorded in the system.</p>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        let schoolSettings = {};
+
+        async function init() {
+            const { data } = await supabaseClient.from('school_settings').select('*').eq('id', 1).single();
+            if (data) {
+                schoolSettings = data;
+                document.getElementById('sidebar-title').innerText = data.school_name || 'Al Arqam Academy';
+                if (data.logo_data && data.logo_data.trim() !== '') {
+                    document.getElementById('sidebar-logo').src = data.logo_data;
+                }
+            }
+            loadFinancials();
+            loadAttendanceStats();
+        }
+
+        async function loadFinancials() {
+            const { data: fees } = await supabaseClient.from('student_fees').select('*');
+            const curr = schoolSettings.currency || 'PKR';
+
+            let totalBilled = 0;
+            let totalCollected = 0;
+            let totalPending = 0;
+
+            const tbody = document.getElementById('defaulter-table-body');
+            tbody.innerHTML = '';
+
+            if (fees) {
+                fees.forEach(f => {
+                    totalBilled += parseFloat(f.total_fee || 0);
+                    totalCollected += parseFloat(f.paid_amount || 0);
+                    totalPending += parseFloat(f.pending_amount || 0);
+
+                    if (f.pending_amount > 0) {
+                        const row = document.createElement('tr');
+                        row.innerHTML = `
+                            <td class="p-3 font-medium text-gray-800">${f.student_name}</td>
+                            <td class="p-3 text-gray-500">${f.fee_month}</td>
+                            <td class="p-3 font-mono font-bold text-red-600">${curr} ${f.pending_amount}</td>
+                            <td class="p-3 text-center no-print">
+                                <button onclick="sendReminder('${f.student_name}', '${f.fee_month}', ${f.pending_amount})" class="bg-red-600 text-white text-xs px-2 py-1 rounded hover:bg-red-700">Remind</button>
+                            </td>
+                        `;
+                        tbody.appendChild(row);
+                    }
+                });
+            }
+
+            const recoveryRate = totalBilled > 0 ? Math.round((totalCollected / totalBilled) * 100) : 0;
+
+            document.getElementById('total-billed').innerText = `${curr} ${totalBilled.toLocaleString()}`;
+            document.getElementById('total-collected').innerText = `${curr} ${totalCollected.toLocaleString()}`;
+            document.getElementById('total-pending').innerText = `${curr} ${totalPending.toLocaleString()}`;
+            document.getElementById('recovery-rate').innerText = `${recoveryRate}%`;
+        }
+
+        async function loadAttendanceStats() {
+            const today = new Date().toISOString().split('T')[0];
+
+            // Students
+            const { data: stAtt } = await supabaseClient.from('student_attendance').select('status').eq('date', today);
+            if (stAtt && stAtt.length > 0) {
+                const present = stAtt.filter(a => a.status === 'Present').length;
+                const rate = Math.round((present / stAtt.length) * 100);
+                document.getElementById('student-attendance-rate').innerText = `${rate}%`;
+            }
+
+            // Teachers
+            const { data: tcAtt } = await supabaseClient.from('teacher_attendance').select('status').eq('date', today);
+            if (tcAtt && tcAtt.length > 0) {
+                const present = tcAtt.filter(a => a.status === 'Present').length;
+                const rate = Math.round((present / tcAtt.length) * 100);
+                document.getElementById('teacher-attendance-rate').innerText = `${rate}%`;
+            }
+        }
+
+        function sendReminder(studentName, month, pending) {
+            const curr = schoolSettings.currency || 'PKR';
+            const msg = encodeURIComponent(`ACADEMY FEE REMINDER - ${schoolSettings.school_name || 'Al Arqam Academy'}\nDear Parent,\nThis is an urgent notice regarding pending fees for ${studentName} for ${month}.\nOutstanding Amount: ${curr} ${pending}.\nPlease visit the office to settle the account.`);
+            window.open(`https://wa.me/?text=${msg}`, '_blank');
+        }
+
+        init();
+    </script>
+</body>
+</html>
