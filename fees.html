@@ -16,52 +16,78 @@
         }
     </style>
 </head>
-<body class="bg-gray-50 font-sans">
+<body class="bg-slate-50 font-sans text-slate-800">
     <script>checkAuth();</script>
 
     <div class="flex h-screen overflow-hidden">
         <!-- Sidebar Navigation -->
-        <aside class="w-64 bg-slate-900 text-white flex flex-col justify-between shrink-0 no-print">
+        <aside class="w-64 bg-slate-900 text-white flex flex-col justify-between shrink-0 shadow-xl border-r border-slate-800 no-print">
             <div class="p-5">
-                <div class="flex items-center space-x-3 mb-6">
-                    <img id="sidebar-logo" src="Academy Asset/Logo.jpg" alt="Academy Logo" class="w-9 h-9 object-contain rounded-md bg-white p-1" onerror="this.style.display='none'">
-                    <h1 id="sidebar-title" class="text-lg font-bold tracking-wide truncate">Al Arqam Academy</h1>
+                <div class="flex items-center space-x-3 mb-8 bg-slate-800/60 p-3 rounded-xl border border-slate-700/50">
+                    <img id="sidebar-logo" src="Academy Asset/Logo.jpg" alt="Academy Logo" class="w-10 h-10 object-contain rounded-lg bg-white p-1 shadow-md" onerror="this.style.display='none'">
+                    <div>
+                        <h1 id="sidebar-title" class="text-base font-bold tracking-wide text-white truncate max-w-[130px]">Al Arqam Academy</h1>
+                        <span class="text-[10px] text-emerald-400 font-semibold bg-emerald-500/10 px-2 py-0.5 rounded-full border border-emerald-500/20">Active Portal</span>
+                    </div>
                 </div>
                 
                 <nav class="space-y-1.5">
-                    <a href="index.html" class="block py-2.5 px-4 rounded text-slate-300 hover:bg-slate-800">Dashboard</a>
-                    <a href="students.html" class="block py-2.5 px-4 rounded text-slate-300 hover:bg-slate-800">Students</a>
-                    <a href="teachers.html" class="block py-2.5 px-4 rounded text-slate-300 hover:bg-slate-800">Teachers</a>
-                    <a href="attendance.html" class="block py-2.5 px-4 rounded text-slate-300 hover:bg-slate-800">Attendance</a>
-                    <a href="fees.html" class="block py-2.5 px-4 rounded bg-blue-600 text-white font-medium">Fees & Receipts</a>
-                    <a href="reports.html" class="block py-2.5 px-4 rounded text-slate-300 hover:bg-slate-800">Reports</a>
-                    <a href="settings.html" class="block py-2.5 px-4 rounded text-slate-300 hover:bg-slate-800">Settings</a>
+                    <a href="index.html" class="flex items-center space-x-3 py-2.5 px-4 rounded-lg text-slate-300 hover:bg-slate-800 hover:text-white transition">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 00-1-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"></path></svg>
+                        <span>Dashboard</span>
+                    </a>
+                    <a href="students.html" class="flex items-center space-x-3 py-2.5 px-4 rounded-lg text-slate-300 hover:bg-slate-800 hover:text-white transition">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"></path></svg>
+                        <span>Students</span>
+                    </a>
+                    <a href="teachers.html" class="flex items-center space-x-3 py-2.5 px-4 rounded-lg text-slate-300 hover:bg-slate-800 hover:text-white transition">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9a2 2 0 00-2-2h-2m-4-3H9M7 16h6M7 8h6v4H7V8z"></path></svg>
+                        <span>Teachers</span>
+                    </a>
+                    <a href="attendance.html" class="flex items-center space-x-3 py-2.5 px-4 rounded-lg text-slate-300 hover:bg-slate-800 hover:text-white transition">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"></path></svg>
+                        <span>Attendance</span>
+                    </a>
+                    <a href="fees.html" class="flex items-center space-x-3 py-2.5 px-4 rounded-lg bg-gradient-to-r from-blue-600 to-indigo-600 text-white font-medium shadow-md">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 9V7a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2m2 4h10a2 2 0 002-2v-6a2 2 0 00-2-2H9a2 2 0 00-2 2v6a2 2 0 002 2zm7-5a2 2 0 11-4 0 2 2 0 014 0z"></path></svg>
+                        <span>Fees & Receipts</span>
+                    </a>
+                    <a href="reports.html" class="flex items-center space-x-3 py-2.5 px-4 rounded-lg text-slate-300 hover:bg-slate-800 hover:text-white transition">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path></svg>
+                        <span>Reports</span>
+                    </a>
+                    <a href="settings.html" class="flex items-center space-x-3 py-2.5 px-4 rounded-lg text-slate-300 hover:bg-slate-800 hover:text-white transition">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"></path></svg>
+                        <span>Settings</span>
+                    </a>
                 </nav>
             </div>
             
-            <div class="p-5 border-t border-slate-800">
-                <button onclick="supabaseClient.auth.signOut().then(() => window.location.href='login.html')" class="w-full bg-red-600 text-sm py-2 rounded text-white hover:bg-red-700">Logout</button>
+            <div class="p-5 border-t border-slate-800 bg-slate-950/40">
+                <button onclick="supabaseClient.auth.signOut().then(() => window.location.href='login.html')" class="w-full bg-rose-600/20 hover:bg-rose-600 text-rose-300 hover:text-white border border-rose-500/30 text-xs py-2.5 rounded-lg transition font-medium">Sign Out</button>
             </div>
         </aside>
 
         <!-- Main Content -->
         <main class="flex-1 overflow-y-auto p-8">
-            <header class="flex justify-between items-center mb-6 no-print">
+            <header class="flex justify-between items-center mb-6 bg-white p-6 rounded-2xl border border-slate-200/80 shadow-sm no-print">
                 <div>
-                    <h2 class="text-2xl font-bold text-gray-800">Fee Records & Receipts</h2>
-                    <p class="text-sm text-gray-500">Record monthly fee collections and generate parent alerts.</p>
+                    <h2 class="text-2xl font-black text-slate-900 tracking-tight">Fee Collection Ledger</h2>
+                    <p class="text-xs font-medium text-slate-500 mt-1">Record payments, generate printable receipts, and trigger WhatsApp alerts.</p>
                 </div>
-                <button onclick="openFeeModal()" class="bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700 font-medium">+ Record Payment</button>
+                <button onclick="openFeeModal()" class="bg-gradient-to-r from-amber-500 to-orange-600 hover:from-amber-600 hover:to-orange-700 text-white px-5 py-2.5 rounded-xl font-bold text-sm shadow-md transition">
+                    + Record Fee Payment
+                </button>
             </header>
 
             <!-- Table -->
-            <div class="bg-white rounded-lg shadow-sm border border-gray-200 overflow-hidden">
+            <div class="bg-white rounded-2xl shadow-sm border border-slate-200/80 overflow-hidden">
                 <table class="w-full text-left border-collapse">
-                    <thead class="bg-gray-100 text-xs font-semibold text-gray-600 uppercase">
+                    <thead class="bg-slate-50 text-[11px] font-bold text-slate-400 uppercase tracking-wider border-b border-slate-100">
                         <tr>
                             <th class="p-4">Receipt #</th>
                             <th class="p-4">Student</th>
-                            <th class="p-4">Period</th>
+                            <th class="p-4">Fee Month</th>
                             <th class="p-4">Total</th>
                             <th class="p-4">Paid</th>
                             <th class="p-4">Pending</th>
@@ -69,7 +95,7 @@
                             <th class="p-4 text-center">Actions</th>
                         </tr>
                     </thead>
-                    <tbody id="fee-table-body" class="divide-y divide-gray-200 text-sm">
+                    <tbody id="fee-table-body" class="divide-y divide-slate-100 text-sm">
                         <!-- Dynamic Records -->
                     </tbody>
                 </table>
@@ -78,104 +104,104 @@
     </div>
 
     <!-- Record Payment Modal -->
-    <div id="fee-modal" class="fixed inset-0 bg-black/50 hidden items-center justify-center p-4 z-50">
-        <div class="bg-white rounded-lg w-full max-w-md p-6 space-y-4">
-            <h3 class="text-xl font-bold text-gray-800">Collect Student Fee</h3>
+    <div id="fee-modal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-xs hidden items-center justify-center p-4 z-50">
+        <div class="bg-white rounded-2xl w-full max-w-md p-6 space-y-4 shadow-2xl border border-slate-100">
+            <h3 class="text-xl font-bold text-slate-800">Record Fee Collection</h3>
             <form id="fee-form" class="space-y-3">
                 <div>
-                    <label class="block text-xs font-medium text-gray-700">Select Student *</label>
-                    <select id="student_select" required class="w-full p-2 border rounded mt-1 text-sm outline-none">
+                    <label class="block text-xs font-semibold text-slate-600">Select Student *</label>
+                    <select id="student_select" required class="w-full p-2.5 border border-slate-200 rounded-lg mt-1 text-sm outline-none">
                         <option value="">Select Student...</option>
                     </select>
                 </div>
                 <div class="grid grid-cols-2 gap-3">
                     <div>
-                        <label class="block text-xs font-medium text-gray-700">Fee Month *</label>
-                        <input type="text" id="fee_month" placeholder="e.g. September 2026" required class="w-full p-2 border rounded mt-1 text-sm">
+                        <label class="block text-xs font-semibold text-slate-600">Fee Month *</label>
+                        <input type="text" id="fee_month" placeholder="e.g. September 2026" required class="w-full p-2.5 border border-slate-200 rounded-lg mt-1 text-sm">
                     </div>
                     <div>
-                        <label class="block text-xs font-medium text-gray-700">Due Date</label>
-                        <input type="date" id="due_date" class="w-full p-2 border rounded mt-1 text-sm">
+                        <label class="block text-xs font-semibold text-slate-600">Due Date</label>
+                        <input type="date" id="due_date" class="w-full p-2.5 border border-slate-200 rounded-lg mt-1 text-sm">
                     </div>
                     <div>
-                        <label class="block text-xs font-medium text-gray-700">Total Fee *</label>
-                        <input type="number" id="total_fee" oninput="calcPending()" required class="w-full p-2 border rounded mt-1 text-sm">
+                        <label class="block text-xs font-semibold text-slate-600">Total Fee *</label>
+                        <input type="number" id="total_fee" oninput="calcPending()" required class="w-full p-2.5 border border-slate-200 rounded-lg mt-1 text-sm">
                     </div>
                     <div>
-                        <label class="block text-xs font-medium text-gray-700">Paid Amount *</label>
-                        <input type="number" id="paid_amount" oninput="calcPending()" required class="w-full p-2 border rounded mt-1 text-sm">
+                        <label class="block text-xs font-semibold text-slate-600">Paid Amount *</label>
+                        <input type="number" id="paid_amount" oninput="calcPending()" required class="w-full p-2.5 border border-slate-200 rounded-lg mt-1 text-sm">
                     </div>
                     <div>
-                        <label class="block text-xs font-medium text-gray-700">Pending Amount</label>
-                        <input type="number" id="pending_amount" readonly class="w-full p-2 border rounded mt-1 text-sm bg-gray-100 font-bold text-red-600">
+                        <label class="block text-xs font-semibold text-slate-600">Pending Amount</label>
+                        <input type="number" id="pending_amount" readonly class="w-full p-2.5 border border-slate-200 rounded-lg mt-1 text-sm bg-slate-100 font-bold text-rose-600">
                     </div>
                     <div>
-                        <label class="block text-xs font-medium text-gray-700">Payment Method</label>
-                        <select id="payment_method" class="w-full p-2 border rounded mt-1 text-sm">
+                        <label class="block text-xs font-semibold text-slate-600">Payment Method</label>
+                        <select id="payment_method" class="w-full p-2.5 border border-slate-200 rounded-lg mt-1 text-sm">
                             <option value="Cash">Cash</option>
                             <option value="Bank Transfer">Bank Transfer</option>
                             <option value="EasyPaisa / JazzCash">EasyPaisa / JazzCash</option>
                         </select>
                     </div>
                 </div>
-                <div class="flex justify-end space-x-2 pt-4 border-t">
-                    <button type="button" onclick="closeFeeModal()" class="px-4 py-2 border rounded text-gray-600 text-sm">Cancel</button>
-                    <button type="submit" class="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 text-sm font-semibold">Save Receipt</button>
+                <div class="flex justify-end space-x-2 pt-4 border-t border-slate-100">
+                    <button type="button" onclick="closeFeeModal()" class="px-4 py-2 border rounded-lg text-slate-600 text-sm font-medium">Cancel</button>
+                    <button type="submit" class="px-5 py-2 bg-amber-600 text-white rounded-lg hover:bg-amber-700 text-sm font-bold shadow-md">Save Receipt</button>
                 </div>
             </form>
         </div>
     </div>
 
     <!-- Printable Receipt Modal -->
-    <div id="receipt-modal" class="fixed inset-0 bg-black/50 hidden items-center justify-center p-4 z-50">
-        <div id="receipt-modal-content" class="bg-white rounded-lg w-full max-w-lg p-6 space-y-4 border">
+    <div id="receipt-modal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-xs hidden items-center justify-center p-4 z-50">
+        <div id="receipt-modal-content" class="bg-white rounded-2xl w-full max-w-lg p-6 space-y-4 border border-slate-200 shadow-2xl">
             <div class="flex justify-between items-center border-b pb-4">
                 <div class="flex items-center space-x-3">
-                    <img id="receipt-logo" src="Academy Asset/Logo.jpg" class="w-12 h-12 object-contain">
+                    <img id="receipt-logo" src="Academy Asset/Logo.jpg" class="w-12 h-12 object-contain rounded-lg">
                     <div>
-                        <h2 id="receipt-school-name" class="text-lg font-bold text-gray-800">Al Arqam Academy</h2>
-                        <p id="receipt-address" class="text-xs text-gray-500">Zubaida park near Hamiyat e Islam School, Lahore</p>
+                        <h2 id="receipt-school-name" class="text-lg font-bold text-slate-900">Al Arqam Academy</h2>
+                        <p id="receipt-address" class="text-xs text-slate-500">Zubaida park near Hamiyat e Islam School, Lahore</p>
                     </div>
                 </div>
                 <div class="text-right">
-                    <p class="text-xs text-gray-400 uppercase font-semibold">Receipt No</p>
-                    <p id="receipt-no" class="text-sm font-mono font-bold text-gray-800"></p>
+                    <p class="text-[10px] text-slate-400 uppercase font-bold">Receipt No</p>
+                    <p id="receipt-no" class="text-sm font-mono font-bold text-slate-900"></p>
                 </div>
             </div>
 
             <div class="grid grid-cols-2 gap-4 text-xs">
-                <div><span class="text-gray-500">Student ID:</span> <span id="r-student-id" class="font-semibold text-gray-800"></span></div>
-                <div><span class="text-gray-500">Student Name:</span> <span id="r-student-name" class="font-semibold text-gray-800"></span></div>
-                <div><span class="text-gray-500">Fee Month:</span> <span id="r-fee-month" class="font-semibold text-gray-800"></span></div>
-                <div><span class="text-gray-500">Payment Date:</span> <span id="r-date" class="font-semibold text-gray-800"></span></div>
+                <div><span class="text-slate-400">Student ID:</span> <span id="r-student-id" class="font-bold text-slate-800"></span></div>
+                <div><span class="text-slate-400">Student Name:</span> <span id="r-student-name" class="font-bold text-slate-800"></span></div>
+                <div><span class="text-slate-400">Fee Month:</span> <span id="r-fee-month" class="font-bold text-slate-800"></span></div>
+                <div><span class="text-slate-400">Payment Date:</span> <span id="r-date" class="font-bold text-slate-800"></span></div>
             </div>
 
-            <table class="w-full text-xs border my-4">
-                <thead class="bg-gray-100">
+            <table class="w-full text-xs border border-slate-100 my-4 rounded-lg overflow-hidden">
+                <thead class="bg-slate-50">
                     <tr>
-                        <th class="p-2 text-left border">Description</th>
-                        <th class="p-2 text-right border">Amount</th>
+                        <th class="p-2.5 text-left border-b border-slate-100">Description</th>
+                        <th class="p-2.5 text-right border-b border-slate-100">Amount</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr>
-                        <td class="p-2 border">Total Fee Charged</td>
-                        <td id="r-total" class="p-2 text-right border font-mono"></td>
+                        <td class="p-2.5 border-b border-slate-100">Total Fee Charged</td>
+                        <td id="r-total" class="p-2.5 text-right border-b border-slate-100 font-mono"></td>
                     </tr>
                     <tr>
-                        <td class="p-2 border">Paid Amount</td>
-                        <td id="r-paid" class="p-2 text-right border font-mono text-emerald-600 font-bold"></td>
+                        <td class="p-2.5 border-b border-slate-100 font-semibold">Paid Amount</td>
+                        <td id="r-paid" class="p-2.5 text-right border-b border-slate-100 font-mono text-emerald-600 font-bold"></td>
                     </tr>
-                    <tr class="bg-gray-50">
-                        <td class="p-2 border font-bold">Pending Balance</td>
-                        <td id="r-pending" class="p-2 text-right border font-mono text-red-600 font-bold"></td>
+                    <tr class="bg-slate-50">
+                        <td class="p-2.5 font-bold">Pending Balance</td>
+                        <td id="r-pending" class="p-2.5 text-right font-mono text-rose-600 font-bold"></td>
                     </tr>
                 </tbody>
             </table>
 
-            <div class="flex justify-between items-center pt-4 border-t no-print">
-                <button onclick="closeReceiptModal()" class="px-4 py-1.5 border text-xs rounded text-gray-600">Close</button>
-                <button onclick="window.print()" class="px-4 py-1.5 bg-blue-600 text-white text-xs rounded font-semibold">Print Receipt</button>
+            <div class="flex justify-between items-center pt-4 border-t border-slate-100 no-print">
+                <button onclick="closeReceiptModal()" class="px-4 py-2 border border-slate-200 text-xs rounded-lg text-slate-600 font-semibold">Close</button>
+                <button onclick="window.print()" class="px-5 py-2 bg-slate-900 text-white text-xs rounded-lg font-bold shadow-md">Print Official Receipt</button>
             </div>
         </div>
     </div>
@@ -219,23 +245,24 @@
                     const student = studentMap[f.student_id] || {};
                     const curr = schoolSettings.currency || 'PKR';
                     
-                    let badgeClass = 'bg-gray-100 text-gray-800';
-                    if (f.status === 'Paid') badgeClass = 'bg-green-100 text-green-800';
-                    else if (f.status === 'Partially Paid') badgeClass = 'bg-yellow-100 text-yellow-800';
-                    else if (f.status === 'Pending' || f.status === 'Overdue') badgeClass = 'bg-red-100 text-red-800';
+                    let badgeClass = 'bg-slate-100 text-slate-800 border-slate-200';
+                    if (f.status === 'Paid') badgeClass = 'bg-emerald-50 text-emerald-700 border-emerald-200';
+                    else if (f.status === 'Partially Paid') badgeClass = 'bg-amber-50 text-amber-700 border-amber-200';
+                    else if (f.status === 'Pending' || f.status === 'Overdue') badgeClass = 'bg-rose-50 text-rose-700 border-rose-200';
 
                     const row = document.createElement('tr');
+                    row.className = "hover:bg-slate-50/80 transition";
                     row.innerHTML = `
-                        <td class="p-4 font-mono text-xs font-semibold text-gray-600">${f.receipt_no}</td>
-                        <td class="p-4 font-medium text-gray-900">${f.student_name}</td>
-                        <td class="p-4 text-gray-600">${f.fee_month}</td>
-                        <td class="p-4 font-mono">${curr} ${f.total_fee}</td>
-                        <td class="p-4 font-mono text-emerald-600 font-semibold">${curr} ${f.paid_amount}</td>
-                        <td class="p-4 font-mono text-red-600 font-semibold">${curr} ${f.pending_amount}</td>
-                        <td class="p-4"><span class="px-2 py-1 rounded-full text-xs font-medium ${badgeClass}">${f.status}</span></td>
+                        <td class="p-4 font-mono text-xs font-bold text-slate-500">${f.receipt_no}</td>
+                        <td class="p-4 font-bold text-slate-900">${f.student_name}</td>
+                        <td class="p-4 text-slate-600 font-medium">${f.fee_month}</td>
+                        <td class="p-4 font-mono font-semibold">${curr} ${f.total_fee}</td>
+                        <td class="p-4 font-mono text-emerald-600 font-bold">${curr} ${f.paid_amount}</td>
+                        <td class="p-4 font-mono text-rose-600 font-bold">${curr} ${f.pending_amount}</td>
+                        <td class="p-4"><span class="px-2.5 py-1 rounded-full text-xs font-bold border ${badgeClass}">${f.status}</span></td>
                         <td class="p-4 text-center space-x-1">
-                            <button onclick="viewReceipt('${f.receipt_no}', '${f.student_custom_id}', '${f.student_name}', '${f.fee_month}', ${f.total_fee}, ${f.paid_amount}, ${f.pending_amount}, '${f.payment_date}')" class="bg-blue-600 text-white text-xs px-2 py-1 rounded hover:bg-blue-700">Receipt</button>
-                            <button onclick="sendWhatsAppNotice('${student.whatsapp}', '${f.student_name}', '${f.fee_month}', ${f.paid_amount}, ${f.pending_amount}, '${f.due_date}', '${f.status}')" class="bg-emerald-600 text-white text-xs px-2 py-1 rounded hover:bg-emerald-700">WhatsApp</button>
+                            <button onclick="viewReceipt('${f.receipt_no}', '${f.student_custom_id}', '${f.student_name}', '${f.fee_month}', ${f.total_fee}, ${f.paid_amount}, ${f.pending_amount}, '${f.payment_date}')" class="bg-blue-600 hover:bg-blue-700 text-white text-xs px-2.5 py-1.5 rounded-lg font-bold shadow-xs transition">Receipt</button>
+                            <button onclick="sendWhatsAppNotice('${student.whatsapp}', '${f.student_name}', '${f.fee_month}', ${f.paid_amount}, ${f.pending_amount}, '${f.due_date}', '${f.status}')" class="bg-emerald-500 hover:bg-emerald-600 text-white text-xs px-2.5 py-1.5 rounded-lg font-bold shadow-xs transition">WhatsApp</button>
                         </td>
                     `;
                     tbody.appendChild(row);
@@ -278,29 +305,19 @@
             };
 
             const { error } = await supabaseClient.from('student_fees').insert([payload]);
-            if (error) {
-                alert('Error recording fee: ' + error.message);
-            } else {
-                closeFeeModal();
-                fetchFees();
-            }
+            if (error) { alert('Error: ' + error.message); } 
+            else { closeFeeModal(); fetchFees(); }
         });
 
         function sendWhatsAppNotice(phone, name, month, paid, pending, dueDate, status) {
-            if (!phone) {
-                alert('Warning: No WhatsApp number saved for this parent.');
-                return;
-            }
+            if (!phone) { alert('Warning: No WhatsApp number saved.'); return; }
             const cleanPhone = phone.replace(/[^0-9]/g, '');
             const curr = schoolSettings.currency || 'PKR';
             const schoolName = schoolSettings.school_name || 'Al Arqam Academy';
 
-            let msg = '';
-            if (status === 'Paid' || status === 'Partially Paid') {
-                msg = `PAYMENT CONFIRMATION - ${schoolName.toUpperCase()}\nDear Parent,\nWe have received the fee payment for ${name} for the period ${month} of ${curr} ${paid}.\nThank you!`;
-            } else {
-                msg = `FEE REMINDER ALERT\nDear Parent,\nThis is a gentle reminder that the fee for ${name} for ${month} (Amount: ${curr} ${pending}) is pending.\nDue Date: ${dueDate || 'Immediate'}\nPlease clear the balance at your earliest.`;
-            }
+            let msg = status === 'Paid' || status === 'Partially Paid' 
+                ? `PAYMENT CONFIRMATION - ${schoolName.toUpperCase()}\nDear Parent,\nWe received ${curr} ${paid} for ${name} (${month}).` 
+                : `FEE REMINDER - ${schoolName.toUpperCase()}\nDear Parent,\nFee balance for ${name} (${month}) of ${curr} ${pending} is pending.`;
 
             window.open(`https://wa.me/${cleanPhone}?text=${encodeURIComponent(msg)}`, '_blank');
         }
