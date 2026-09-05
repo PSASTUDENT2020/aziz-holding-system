@@ -37,6 +37,10 @@
                         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9a2 2 0 00-2-2h-2m-4-3H9M7 16h6M7 8h6v4H7V8z"></path></svg>
                         <span>Teachers</span>
                     </a>
+                    <a href="courses.html" class="flex items-center space-x-3 py-2.5 px-4 rounded-lg text-slate-300 hover:bg-slate-800 hover:text-white transition">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path></svg>
+                        <span>Courses & Classes</span>
+                    </a>
                     <a href="attendance.html" class="flex items-center space-x-3 py-2.5 px-4 rounded-lg text-slate-300 hover:bg-slate-800 hover:text-white transition">
                         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"></path></svg>
                         <span>Attendance</span>
@@ -75,51 +79,35 @@
 
             <!-- Metrics Cards Grid -->
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
-                <!-- Total Students -->
                 <div class="bg-gradient-to-br from-blue-500 to-indigo-600 p-6 rounded-2xl shadow-lg text-white relative overflow-hidden">
                     <div class="relative z-10">
                         <p class="text-xs font-semibold uppercase tracking-wider text-blue-100">Total Enrolled</p>
                         <h3 id="total-students" class="text-3xl font-black mt-2">0</h3>
                         <p class="text-[11px] text-blue-100/80 mt-1">Active student database</p>
                     </div>
-                    <div class="absolute -right-2 -bottom-2 opacity-10 text-white">
-                        <svg class="w-24 h-24" fill="currentColor" viewBox="0 0 20 20"><path d="M13 6a3 3 0 11-6 0 3 3 0 016 0zM18 8a2 2 0 11-4 0 2 2 0 014 0zM14 15a4 4 0 00-8 0v3h8v-3zM6 8a2 2 0 11-4 0 2 2 0 014 0zM16 18v-3a5.972 5.972 0 00-.75-2.906A3.005 3.005 0 0119 15v3h-3zM4.75 12.094A5.973 5.973 0 004 15v3H1v-3a3 3 0 013.75-2.906z"></path></svg>
-                    </div>
                 </div>
 
-                <!-- Active Teachers -->
                 <div class="bg-gradient-to-br from-emerald-500 to-teal-600 p-6 rounded-2xl shadow-lg text-white relative overflow-hidden">
                     <div class="relative z-10">
                         <p class="text-xs font-semibold uppercase tracking-wider text-emerald-100">Teaching Staff</p>
                         <h3 id="total-teachers" class="text-3xl font-black mt-2">0</h3>
                         <p class="text-[11px] text-emerald-100/80 mt-1">Active faculty members</p>
                     </div>
-                    <div class="absolute -right-2 -bottom-2 opacity-10 text-white">
-                        <svg class="w-24 h-24" fill="currentColor" viewBox="0 0 20 20"><path d="M10.394 2.08a1 1 0 00-.788 0l-7 3a1 1 0 000 1.84L5.25 8.051a.999.999 0 01.356.257l4 4a1 1 0 001.388 0l4-4a1 1 0 01.356-.257l2.644-1.131a1 1 0 000-1.84l-7-3zM3.31 9.397L5 10.12v4.102a8.969 8.969 0 00-1.05-.174 1 1 0 01-.89-.89 11.115 11.115 0 01.25-3.762zM9.3 16.573A9.026 9.026 0 007 14.935v-3.957l1.818 1.818a3 3 0 004.244 0L15 10.978v3.957a9.026 9.026 0 00-2.3 1.638 1 1 0 01-1.4 0l-2-2a1 1 0 00-1.4 0l-2 2z"></path></svg>
-                    </div>
                 </div>
 
-                <!-- Monthly Revenue Collection -->
                 <div class="bg-gradient-to-br from-amber-500 to-orange-600 p-6 rounded-2xl shadow-lg text-white relative overflow-hidden">
                     <div class="relative z-10">
                         <p class="text-xs font-semibold uppercase tracking-wider text-amber-100">Fee Collections</p>
                         <h3 id="total-collections" class="text-3xl font-black mt-2">PKR 0</h3>
                         <p class="text-[11px] text-amber-100/80 mt-1">Total paid fees</p>
                     </div>
-                    <div class="absolute -right-2 -bottom-2 opacity-10 text-white">
-                        <svg class="w-24 h-24" fill="currentColor" viewBox="0 0 20 20"><path d="M4 4a2 2 0 00-2 2v1h16V6a2 2 0 00-2-2H4z"></path><path fill-rule="evenodd" d="M18 9H2v5a2 2 0 002 2h12a2 2 0 002-2V9zM4 13a1 1 0 011-1h1a1 1 0 110 2H5a1 1 0 01-1-1zm5-1a1 1 0 100 2h1a1 1 0 100-2H9z" clip-rule="evenodd"></path></svg>
-                    </div>
                 </div>
 
-                <!-- Today's Attendance -->
                 <div class="bg-gradient-to-br from-violet-500 to-purple-600 p-6 rounded-2xl shadow-lg text-white relative overflow-hidden">
                     <div class="relative z-10">
                         <p class="text-xs font-semibold uppercase tracking-wider text-violet-100">Attendance Today</p>
                         <h3 id="today-attendance" class="text-3xl font-black mt-2">0%</h3>
                         <p class="text-[11px] text-violet-100/80 mt-1">Student presence rate</p>
-                    </div>
-                    <div class="absolute -right-2 -bottom-2 opacity-10 text-white">
-                        <svg class="w-24 h-24" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>
                     </div>
                 </div>
             </div>
@@ -174,9 +162,7 @@
                         <span>Recent System Activity</span>
                         <span class="text-xs text-slate-400 font-normal">Live database log</span>
                     </h4>
-                    <div id="activity-log" class="space-y-3 overflow-y-auto max-h-64 text-xs">
-                        <!-- Dynamic Logs -->
-                    </div>
+                    <div id="activity-log" class="space-y-3 overflow-y-auto max-h-64 text-xs"></div>
                 </div>
             </div>
         </main>
@@ -196,15 +182,12 @@
                 }
             }
 
-            // Student Count
             const { count: studentCount } = await supabaseClient.from('students').select('*', { count: 'exact', head: true });
             document.getElementById('total-students').innerText = studentCount || 0;
 
-            // Teacher Count
             const { count: teacherCount } = await supabaseClient.from('teachers').select('*', { count: 'exact', head: true });
             document.getElementById('total-teachers').innerText = teacherCount || 0;
 
-            // Fees Calculation
             const { data: fees } = await supabaseClient.from('student_fees').select('*');
             let paidSum = 0;
             let pendingSum = 0;
@@ -217,7 +200,6 @@
             const curr = data?.currency || 'PKR';
             document.getElementById('total-collections').innerText = `${curr} ${paidSum.toLocaleString()}`;
 
-            // Today Attendance
             const today = new Date().toISOString().split('T')[0];
             const { data: att } = await supabaseClient.from('student_attendance').select('status').eq('date', today);
             if (att && att.length > 0) {
@@ -225,7 +207,6 @@
                 document.getElementById('today-attendance').innerText = `${Math.round((present / att.length) * 100)}%`;
             }
 
-            // Render Chart
             const ctx = document.getElementById('feeChart').getContext('2d');
             new Chart(ctx, {
                 type: 'doughnut',
@@ -240,7 +221,6 @@
                 options: { responsive: true, maintainAspectRatio: false }
             });
 
-            // Populate Activity Log
             const logContainer = document.getElementById('activity-log');
             logContainer.innerHTML = `
                 <div class="p-3 bg-slate-50 rounded-xl border border-slate-100 flex justify-between items-center">
