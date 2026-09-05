@@ -36,6 +36,10 @@
                         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9a2 2 0 00-2-2h-2m-4-3H9M7 16h6M7 8h6v4H7V8z"></path></svg>
                         <span>Teachers</span>
                     </a>
+                    <a href="courses.html" class="flex items-center space-x-3 py-2.5 px-4 rounded-lg text-slate-300 hover:bg-slate-800 hover:text-white transition">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path></svg>
+                        <span>Courses & Classes</span>
+                    </a>
                     <a href="attendance.html" class="flex items-center space-x-3 py-2.5 px-4 rounded-lg text-slate-300 hover:bg-slate-800 hover:text-white transition">
                         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"></path></svg>
                         <span>Attendance</span>
@@ -75,16 +79,24 @@
             <!-- Filters -->
             <div class="flex gap-4 mb-6">
                 <input type="text" id="search-input" onkeyup="fetchStudents()" placeholder="Search student name, ID, or phone..." class="p-3 border border-slate-200 rounded-xl w-80 text-sm outline-none focus:ring-2 focus:ring-blue-500 bg-white shadow-xs">
-                <select id="class-filter" onchange="fetchStudents()" class="p-3 border border-slate-200 rounded-xl text-sm outline-none focus:ring-2 focus:ring-blue-500 bg-white shadow-xs">
-                    <option value="">All Classes</option>
-                    <option value="Nursery">Nursery</option>
-                    <option value="Prep">Prep</option>
-                    <option value="Class 1">Class 1</option>
-                    <option value="Class 2">Class 2</option>
-                    <option value="Class 3">Class 3</option>
-                    <option value="Class 4">Class 4</option>
-                    <option value="Class 5">Class 5</option>
-                </select>
+                
+                <!-- Searchable Class Dropdown Component -->
+                <div class="relative w-64" id="class-dropdown-wrapper">
+                    <input type="hidden" id="class-filter" value="">
+                    <button type="button" onclick="toggleClassDropdown()" id="class-dropdown-btn" class="w-full p-3 border border-slate-200 rounded-xl text-sm font-medium bg-white flex justify-between items-center focus:outline-none focus:ring-2 focus:ring-blue-500 shadow-xs">
+                        <span id="class-dropdown-label" class="truncate text-slate-700">All Classes</span>
+                        <svg class="w-4 h-4 text-slate-400 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                    </button>
+                    
+                    <div id="class-dropdown-menu" class="hidden absolute z-30 mt-1 w-full bg-white border border-slate-200 rounded-xl shadow-xl overflow-hidden">
+                        <div class="p-2 border-b border-slate-100 bg-slate-50">
+                            <input type="text" id="class-search-input" onkeyup="filterClassOptions()" placeholder="Search class..." class="w-full p-2 border border-slate-200 rounded-lg text-xs bg-white outline-none focus:border-blue-500">
+                        </div>
+                        <ul id="class-dropdown-options" class="max-h-48 overflow-y-auto text-sm divide-y divide-slate-50">
+                            <!-- Options dynamically injected -->
+                        </ul>
+                    </div>
+                </div>
             </div>
 
             <!-- Table -->
@@ -149,6 +161,7 @@
 
     <script>
         let schoolSettings = {};
+        let availableClasses = [];
 
         async function init() {
             const { data } = await supabaseClient.from('school_settings').select('*').eq('id', 1).single();
@@ -159,8 +172,72 @@
                     document.getElementById('sidebar-logo').src = data.logo_data;
                 }
             }
+            await populateClassDropdown();
             fetchStudents();
         }
+
+        // Searchable Dropdown Logic
+        async function populateClassDropdown() {
+            const { data: classesData } = await supabaseClient.from('classes').select('class_name');
+            const fallbackClasses = ["Nursery", "Prep", "Class 1", "Class 2", "Class 3", "Class 4", "Class 5"];
+            
+            if (classesData && classesData.length > 0) {
+                availableClasses = Array.from(new Set(classesData.map(c => c.class_name))).sort();
+            } else {
+                availableClasses = fallbackClasses;
+            }
+
+            renderClassOptions(availableClasses);
+        }
+
+        function renderClassOptions(classesList) {
+            const listContainer = document.getElementById('class-dropdown-options');
+            listContainer.innerHTML = '';
+
+            // Default 'All Classes' option
+            const defaultLi = document.createElement('li');
+            defaultLi.className = "px-4 py-2 hover:bg-slate-100 cursor-pointer text-xs font-semibold text-slate-600 transition";
+            defaultLi.innerText = "All Classes";
+            defaultLi.onclick = () => selectClassOption('', 'All Classes');
+            listContainer.appendChild(defaultLi);
+
+            classesList.forEach(cls => {
+                const li = document.createElement('li');
+                li.className = "px-4 py-2 hover:bg-slate-100 cursor-pointer text-xs font-medium text-slate-700 transition";
+                li.innerText = cls;
+                li.onclick = () => selectClassOption(cls, cls);
+                listContainer.appendChild(li);
+            });
+        }
+
+        function toggleClassDropdown() {
+            const menu = document.getElementById('class-dropdown-menu');
+            menu.classList.toggle('hidden');
+            if (!menu.classList.contains('hidden')) {
+                document.getElementById('class-search-input').focus();
+            }
+        }
+
+        function filterClassOptions() {
+            const query = document.getElementById('class-search-input').value.toLowerCase();
+            const filtered = availableClasses.filter(c => c.toLowerCase().includes(query));
+            renderClassOptions(filtered);
+        }
+
+        function selectClassOption(val, label) {
+            document.getElementById('class-filter').value = val;
+            document.getElementById('class-dropdown-label').innerText = label;
+            document.getElementById('class-dropdown-menu').classList.add('hidden');
+            fetchStudents();
+        }
+
+        // Close dropdown when clicking outside
+        document.addEventListener('click', function(e) {
+            const wrapper = document.getElementById('class-dropdown-wrapper');
+            if (wrapper && !wrapper.contains(e.target)) {
+                document.getElementById('class-dropdown-menu').classList.add('hidden');
+            }
+        });
 
         async function fetchStudents() {
             const query = document.getElementById('search-input').value.toLowerCase();
