@@ -8,57 +8,81 @@
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script src="config.js"></script>
 </head>
-<body class="bg-gray-50 font-sans">
+<body class="bg-slate-50 font-sans text-slate-800">
     <script>checkAuth();</script>
 
     <div class="flex h-screen overflow-hidden">
         <!-- Sidebar Navigation -->
-        <aside class="w-64 bg-slate-900 text-white flex flex-col justify-between shrink-0">
+        <aside class="w-64 bg-slate-900 text-white flex flex-col justify-between shrink-0 shadow-xl border-r border-slate-800">
             <div class="p-5">
-                <div class="flex items-center space-x-3 mb-6">
-                    <img id="sidebar-logo" src="Academy Asset/Logo.jpg" alt="Academy Logo" class="w-9 h-9 object-contain rounded-md bg-white p-1" onerror="this.style.display='none'">
-                    <h1 id="sidebar-title" class="text-lg font-bold tracking-wide truncate">Al Arqam Academy</h1>
+                <div class="flex items-center space-x-3 mb-8 bg-slate-800/60 p-3 rounded-xl border border-slate-700/50">
+                    <img id="sidebar-logo" src="Academy Asset/Logo.jpg" alt="Academy Logo" class="w-10 h-10 object-contain rounded-lg bg-white p-1 shadow-md" onerror="this.style.display='none'">
+                    <div>
+                        <h1 id="sidebar-title" class="text-base font-bold tracking-wide text-white truncate max-w-[130px]">Al Arqam Academy</h1>
+                        <span class="text-[10px] text-emerald-400 font-semibold bg-emerald-500/10 px-2 py-0.5 rounded-full border border-emerald-500/20">Active Portal</span>
+                    </div>
                 </div>
                 
                 <nav class="space-y-1.5">
-                    <a href="index.html" class="block py-2.5 px-4 rounded text-slate-300 hover:bg-slate-800">Dashboard</a>
-                    <a href="students.html" class="block py-2.5 px-4 rounded text-slate-300 hover:bg-slate-800">Students</a>
-                    <a href="teachers.html" class="block py-2.5 px-4 rounded text-slate-300 hover:bg-slate-800">Teachers</a>
-                    <a href="attendance.html" class="block py-2.5 px-4 rounded bg-blue-600 text-white font-medium">Attendance</a>
-                    <a href="fees.html" class="block py-2.5 px-4 rounded text-slate-300 hover:bg-slate-800">Fees & Receipts</a>
-                    <a href="reports.html" class="block py-2.5 px-4 rounded text-slate-300 hover:bg-slate-800">Reports</a>
-                    <a href="settings.html" class="block py-2.5 px-4 rounded text-slate-300 hover:bg-slate-800">Settings</a>
+                    <a href="index.html" class="flex items-center space-x-3 py-2.5 px-4 rounded-lg text-slate-300 hover:bg-slate-800 hover:text-white transition">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 00-1-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"></path></svg>
+                        <span>Dashboard</span>
+                    </a>
+                    <a href="students.html" class="flex items-center space-x-3 py-2.5 px-4 rounded-lg text-slate-300 hover:bg-slate-800 hover:text-white transition">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"></path></svg>
+                        <span>Students</span>
+                    </a>
+                    <a href="teachers.html" class="flex items-center space-x-3 py-2.5 px-4 rounded-lg text-slate-300 hover:bg-slate-800 hover:text-white transition">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9a2 2 0 00-2-2h-2m-4-3H9M7 16h6M7 8h6v4H7V8z"></path></svg>
+                        <span>Teachers</span>
+                    </a>
+                    <a href="attendance.html" class="flex items-center space-x-3 py-2.5 px-4 rounded-lg bg-gradient-to-r from-blue-600 to-indigo-600 text-white font-medium shadow-md">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"></path></svg>
+                        <span>Attendance</span>
+                    </a>
+                    <a href="fees.html" class="flex items-center space-x-3 py-2.5 px-4 rounded-lg text-slate-300 hover:bg-slate-800 hover:text-white transition">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 9V7a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2m2 4h10a2 2 0 002-2v-6a2 2 0 00-2-2H9a2 2 0 00-2 2v6a2 2 0 002 2zm7-5a2 2 0 11-4 0 2 2 0 014 0z"></path></svg>
+                        <span>Fees & Receipts</span>
+                    </a>
+                    <a href="reports.html" class="flex items-center space-x-3 py-2.5 px-4 rounded-lg text-slate-300 hover:bg-slate-800 hover:text-white transition">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path></svg>
+                        <span>Reports</span>
+                    </a>
+                    <a href="settings.html" class="flex items-center space-x-3 py-2.5 px-4 rounded-lg text-slate-300 hover:bg-slate-800 hover:text-white transition">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"></path></svg>
+                        <span>Settings</span>
+                    </a>
                 </nav>
             </div>
             
-            <div class="p-5 border-t border-slate-800">
-                <button onclick="supabaseClient.auth.signOut().then(() => window.location.href='login.html')" class="w-full bg-red-600 text-sm py-2 rounded text-white hover:bg-red-700">Logout</button>
+            <div class="p-5 border-t border-slate-800 bg-slate-950/40">
+                <button onclick="supabaseClient.auth.signOut().then(() => window.location.href='login.html')" class="w-full bg-rose-600/20 hover:bg-rose-600 text-rose-300 hover:text-white border border-rose-500/30 text-xs py-2.5 rounded-lg transition font-medium">Sign Out</button>
             </div>
         </aside>
 
         <!-- Main Content -->
         <main class="flex-1 overflow-y-auto p-8">
-            <header class="flex justify-between items-center mb-6">
+            <header class="flex justify-between items-center mb-6 bg-white p-6 rounded-2xl border border-slate-200/80 shadow-sm">
                 <div>
-                    <h2 class="text-2xl font-bold text-gray-800">Daily Attendance Register</h2>
-                    <p class="text-sm text-gray-500">Track daily presence for students and teaching staff.</p>
+                    <h2 class="text-2xl font-black text-slate-900 tracking-tight">Daily Attendance Register</h2>
+                    <p class="text-xs font-medium text-slate-500 mt-1">Mark student and faculty presence and dispatch missing alerts.</p>
                 </div>
                 <div class="flex items-center space-x-3">
-                    <label class="text-xs font-semibold text-gray-600 uppercase">Select Date:</label>
-                    <input type="date" id="attendance-date" onchange="loadAttendance()" class="p-2 border rounded-md text-sm outline-none focus:ring-2 focus:ring-blue-500 bg-white">
+                    <label class="text-xs font-bold text-slate-500 uppercase">Register Date:</label>
+                    <input type="date" id="attendance-date" onchange="loadAttendance()" class="p-2.5 border border-slate-200 rounded-xl text-sm outline-none focus:ring-2 focus:ring-blue-500 bg-slate-50 font-semibold">
                 </div>
             </header>
 
             <!-- Mode Tabs -->
-            <div class="flex border-b border-gray-200 mb-6">
-                <button id="tab-students" onclick="switchTab('students')" class="py-2.5 px-6 font-semibold text-sm border-b-2 border-blue-600 text-blue-600">Student Register</button>
-                <button id="tab-teachers" onclick="switchTab('teachers')" class="py-2.5 px-6 font-semibold text-sm text-gray-500 hover:text-gray-700">Teacher Register</button>
+            <div class="flex space-x-2 border-b border-slate-200 mb-6">
+                <button id="tab-students" onclick="switchTab('students')" class="py-2.5 px-6 font-bold text-sm border-b-2 border-blue-600 text-blue-600">Student Register</button>
+                <button id="tab-teachers" onclick="switchTab('teachers')" class="py-2.5 px-6 font-bold text-sm text-slate-400 hover:text-slate-600">Faculty Register</button>
             </div>
 
-            <!-- Controls Toolbar -->
+            <!-- Toolbar -->
             <div class="flex justify-between items-center mb-4">
                 <div id="student-filters" class="flex gap-4">
-                    <select id="class-select" onchange="loadAttendance()" class="p-2 border rounded-md text-sm outline-none bg-white">
+                    <select id="class-select" onchange="loadAttendance()" class="p-2.5 border border-slate-200 rounded-xl text-sm outline-none bg-white">
                         <option value="">All Classes</option>
                         <option value="Nursery">Nursery</option>
                         <option value="Prep">Prep</option>
@@ -70,26 +94,26 @@
                     </select>
                 </div>
                 <div class="space-x-2">
-                    <button onclick="markAll('Present')" class="bg-emerald-100 text-emerald-800 border border-emerald-300 px-3 py-1.5 rounded text-xs font-semibold hover:bg-emerald-200">Mark All Present</button>
-                    <button onclick="markAll('Absent')" class="bg-red-100 text-red-800 border border-red-300 px-3 py-1.5 rounded text-xs font-semibold hover:bg-red-200">Mark All Absent</button>
-                    <button onclick="saveAttendance()" class="bg-blue-600 text-white px-5 py-1.5 rounded text-xs font-semibold hover:bg-blue-700 shadow-sm">Save Register</button>
+                    <button onclick="markAll('Present')" class="bg-emerald-50 text-emerald-700 border border-emerald-200 px-4 py-2 rounded-xl text-xs font-bold hover:bg-emerald-100 transition">Mark All Present</button>
+                    <button onclick="markAll('Absent')" class="bg-rose-50 text-rose-700 border border-rose-200 px-4 py-2 rounded-xl text-xs font-bold hover:bg-rose-100 transition">Mark All Absent</button>
+                    <button onclick="saveAttendance()" class="bg-gradient-to-r from-blue-600 to-indigo-600 text-white px-5 py-2 rounded-xl text-xs font-bold shadow-md hover:from-blue-700 transition">Save Register</button>
                 </div>
             </div>
 
             <!-- Table -->
-            <div class="bg-white rounded-lg shadow-sm border border-gray-200 overflow-hidden">
+            <div class="bg-white rounded-2xl shadow-sm border border-slate-200/80 overflow-hidden">
                 <table class="w-full text-left border-collapse">
-                    <thead class="bg-gray-100 text-xs font-semibold text-gray-600 uppercase">
+                    <thead class="bg-slate-50 text-[11px] font-bold text-slate-400 uppercase tracking-wider border-b border-slate-100">
                         <tr>
                             <th class="p-4">ID</th>
                             <th class="p-4">Name</th>
                             <th class="p-4" id="col-detail">Class</th>
-                            <th class="p-4 text-center">Status</th>
-                            <th class="p-4 text-center">Actions / Alerts</th>
+                            <th class="p-4 text-center">Presence Status</th>
+                            <th class="p-4 text-center">Alert Options</th>
                         </tr>
                     </thead>
-                    <tbody id="attendance-table-body" class="divide-y divide-gray-200 text-sm">
-                        <!-- Dynamic Records -->
+                    <tbody id="attendance-table-body" class="divide-y divide-slate-100 text-sm">
+                        <!-- Dynamic Content -->
                     </tbody>
                 </table>
             </div>
@@ -122,13 +146,13 @@
             const colDetail = document.getElementById('col-detail');
 
             if (tab === 'students') {
-                tabSt.className = "py-2.5 px-6 font-semibold text-sm border-b-2 border-blue-600 text-blue-600";
-                tabTc.className = "py-2.5 px-6 font-semibold text-sm text-gray-500 hover:text-gray-700";
+                tabSt.className = "py-2.5 px-6 font-bold text-sm border-b-2 border-blue-600 text-blue-600";
+                tabTc.className = "py-2.5 px-6 font-bold text-sm text-slate-400 hover:text-slate-600";
                 filters.classList.remove('hidden');
                 colDetail.innerText = "Class";
             } else {
-                tabTc.className = "py-2.5 px-6 font-semibold text-sm border-b-2 border-blue-600 text-blue-600";
-                tabSt.className = "py-2.5 px-6 font-semibold text-sm text-gray-500 hover:text-gray-700";
+                tabTc.className = "py-2.5 px-6 font-bold text-sm border-b-2 border-blue-600 text-blue-600";
+                tabSt.className = "py-2.5 px-6 font-bold text-sm text-slate-400 hover:text-slate-600";
                 filters.classList.add('hidden');
                 colDetail.innerText = "Designation";
             }
@@ -155,12 +179,13 @@
                 activeRecords.forEach(s => {
                     const status = existingMap[s.id] || 'Present';
                     const row = document.createElement('tr');
+                    row.className = "hover:bg-slate-50/80 transition";
                     row.innerHTML = `
-                        <td class="p-4 font-mono text-xs font-semibold text-gray-600">${s.student_id}</td>
-                        <td class="p-4 font-medium text-gray-900">${s.name}</td>
-                        <td class="p-4 text-gray-600">${s.class}</td>
+                        <td class="p-4 font-mono text-xs font-bold text-slate-500">${s.student_id}</td>
+                        <td class="p-4 font-bold text-slate-900">${s.name}</td>
+                        <td class="p-4 text-slate-600 font-medium">${s.class}</td>
                         <td class="p-4 text-center">
-                            <select id="status-${s.id}" class="p-1.5 border rounded text-xs font-semibold outline-none focus:ring-2 focus:ring-blue-500">
+                            <select id="status-${s.id}" class="p-2 border border-slate-200 rounded-lg text-xs font-bold outline-none focus:ring-2 focus:ring-blue-500 bg-white">
                                 <option value="Present" ${status === 'Present' ? 'selected' : ''}>Present</option>
                                 <option value="Absent" ${status === 'Absent' ? 'selected' : ''}>Absent</option>
                                 <option value="Late" ${status === 'Late' ? 'selected' : ''}>Late</option>
@@ -168,7 +193,7 @@
                             </select>
                         </td>
                         <td class="p-4 text-center">
-                            <button onclick="sendAbsenceAlert('${s.whatsapp}', '${s.name}')" class="bg-emerald-600 text-white text-xs px-2.5 py-1 rounded hover:bg-emerald-700">WhatsApp Alert</button>
+                            <button onclick="sendAbsenceAlert('${s.whatsapp}', '${s.name}')" class="bg-emerald-500 hover:bg-emerald-600 text-white text-xs px-3 py-1.5 rounded-lg font-bold shadow-xs transition">WhatsApp Alert</button>
                         </td>
                     `;
                     tbody.appendChild(row);
@@ -184,19 +209,20 @@
                 activeRecords.forEach(t => {
                     const status = existingMap[t.id] || 'Present';
                     const row = document.createElement('tr');
+                    row.className = "hover:bg-slate-50/80 transition";
                     row.innerHTML = `
-                        <td class="p-4 font-mono text-xs font-semibold text-gray-600">${t.teacher_id}</td>
-                        <td class="p-4 font-medium text-gray-900">${t.name}</td>
-                        <td class="p-4 text-gray-600">${t.designation || 'Teacher'}</td>
+                        <td class="p-4 font-mono text-xs font-bold text-slate-500">${t.teacher_id}</td>
+                        <td class="p-4 font-bold text-slate-900">${t.name}</td>
+                        <td class="p-4 text-slate-600 font-medium">${t.designation || 'Teacher'}</td>
                         <td class="p-4 text-center">
-                            <select id="status-${t.id}" class="p-1.5 border rounded text-xs font-semibold outline-none focus:ring-2 focus:ring-blue-500">
+                            <select id="status-${t.id}" class="p-2 border border-slate-200 rounded-lg text-xs font-bold outline-none focus:ring-2 focus:ring-blue-500 bg-white">
                                 <option value="Present" ${status === 'Present' ? 'selected' : ''}>Present</option>
                                 <option value="Absent" ${status === 'Absent' ? 'selected' : ''}>Absent</option>
                                 <option value="Late" ${status === 'Late' ? 'selected' : ''}>Late</option>
                                 <option value="Leave" ${status === 'Leave' ? 'selected' : ''}>Leave</option>
                             </select>
                         </td>
-                        <td class="p-4 text-center text-xs text-gray-400">N/A</td>
+                        <td class="p-4 text-center text-xs text-slate-400">N/A</td>
                     `;
                     tbody.appendChild(row);
                 });
@@ -239,21 +265,15 @@
             const table = currentTab === 'students' ? 'student_attendance' : 'teacher_attendance';
             const { error } = await supabaseClient.from(table).upsert(payload, { onConflict: currentTab === 'students' ? 'date,student_id' : 'date,teacher_id' });
 
-            if (error) {
-                alert('Error saving attendance: ' + error.message);
-            } else {
-                alert('Attendance register updated successfully!');
-            }
+            if (error) { alert('Error: ' + error.message); } 
+            else { alert('Attendance register updated!'); }
         }
 
         function sendAbsenceAlert(phone, name) {
-            if (!phone) {
-                alert('No WhatsApp phone number on file for this student.');
-                return;
-            }
+            if (!phone) { alert('No WhatsApp phone on file.'); return; }
             const cleanPhone = phone.replace(/[^0-9]/g, '');
             const dateVal = document.getElementById('attendance-date').value;
-            const msg = encodeURIComponent(`ABSENCE ALERT - ${schoolSettings.school_name || 'Al Arqam Academy'}\nDear Parent,\nThis is to notify you that ${name} was marked ABSENT on ${dateVal}.\nPlease contact the academy administration if this was unexpected.`);
+            const msg = encodeURIComponent(`ABSENCE NOTICE - ${schoolSettings.school_name || 'Al Arqam Academy'}\nDear Parent,\nThis is to inform you that ${name} was marked ABSENT on ${dateVal}.`);
             window.open(`https://wa.me/${cleanPhone}?text=${msg}`, '_blank');
         }
 
