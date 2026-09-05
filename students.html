@@ -8,48 +8,74 @@
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script src="config.js"></script>
 </head>
-<body class="bg-gray-50 font-sans">
+<body class="bg-slate-50 font-sans text-slate-800">
     <script>checkAuth();</script>
 
     <div class="flex h-screen overflow-hidden">
         <!-- Sidebar Navigation -->
-        <aside class="w-64 bg-slate-900 text-white flex flex-col justify-between shrink-0">
+        <aside class="w-64 bg-slate-900 text-white flex flex-col justify-between shrink-0 shadow-xl border-r border-slate-800">
             <div class="p-5">
-                <div class="flex items-center space-x-3 mb-6">
-                    <img id="sidebar-logo" src="Academy Asset/Logo.jpg" alt="Academy Logo" class="w-9 h-9 object-contain rounded-md bg-white p-1" onerror="this.style.display='none'">
-                    <h1 id="sidebar-title" class="text-lg font-bold tracking-wide truncate">Al Arqam Academy</h1>
+                <div class="flex items-center space-x-3 mb-8 bg-slate-800/60 p-3 rounded-xl border border-slate-700/50">
+                    <img id="sidebar-logo" src="Academy Asset/Logo.jpg" alt="Academy Logo" class="w-10 h-10 object-contain rounded-lg bg-white p-1 shadow-md" onerror="this.style.display='none'">
+                    <div>
+                        <h1 id="sidebar-title" class="text-base font-bold tracking-wide text-white truncate max-w-[130px]">Al Arqam Academy</h1>
+                        <span class="text-[10px] text-emerald-400 font-semibold bg-emerald-500/10 px-2 py-0.5 rounded-full border border-emerald-500/20">Active Portal</span>
+                    </div>
                 </div>
                 
                 <nav class="space-y-1.5">
-                    <a href="index.html" class="block py-2.5 px-4 rounded text-slate-300 hover:bg-slate-800">Dashboard</a>
-                    <a href="students.html" class="block py-2.5 px-4 rounded bg-blue-600 text-white font-medium">Students</a>
-                    <a href="teachers.html" class="block py-2.5 px-4 rounded text-slate-300 hover:bg-slate-800">Teachers</a>
-                    <a href="attendance.html" class="block py-2.5 px-4 rounded text-slate-300 hover:bg-slate-800">Attendance</a>
-                    <a href="fees.html" class="block py-2.5 px-4 rounded text-slate-300 hover:bg-slate-800">Fees & Receipts</a>
-                    <a href="reports.html" class="block py-2.5 px-4 rounded text-slate-300 hover:bg-slate-800">Reports</a>
-                    <a href="settings.html" class="block py-2.5 px-4 rounded text-slate-300 hover:bg-slate-800">Settings</a>
+                    <a href="index.html" class="flex items-center space-x-3 py-2.5 px-4 rounded-lg text-slate-300 hover:bg-slate-800 hover:text-white transition">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 00-1-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"></path></svg>
+                        <span>Dashboard</span>
+                    </a>
+                    <a href="students.html" class="flex items-center space-x-3 py-2.5 px-4 rounded-lg bg-gradient-to-r from-blue-600 to-indigo-600 text-white font-medium shadow-md">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"></path></svg>
+                        <span>Students</span>
+                    </a>
+                    <a href="teachers.html" class="flex items-center space-x-3 py-2.5 px-4 rounded-lg text-slate-300 hover:bg-slate-800 hover:text-white transition">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9a2 2 0 00-2-2h-2m-4-3H9M7 16h6M7 8h6v4H7V8z"></path></svg>
+                        <span>Teachers</span>
+                    </a>
+                    <a href="attendance.html" class="flex items-center space-x-3 py-2.5 px-4 rounded-lg text-slate-300 hover:bg-slate-800 hover:text-white transition">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"></path></svg>
+                        <span>Attendance</span>
+                    </a>
+                    <a href="fees.html" class="flex items-center space-x-3 py-2.5 px-4 rounded-lg text-slate-300 hover:bg-slate-800 hover:text-white transition">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 9V7a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2m2 4h10a2 2 0 002-2v-6a2 2 0 00-2-2H9a2 2 0 00-2 2v6a2 2 0 002 2zm7-5a2 2 0 11-4 0 2 2 0 014 0z"></path></svg>
+                        <span>Fees & Receipts</span>
+                    </a>
+                    <a href="reports.html" class="flex items-center space-x-3 py-2.5 px-4 rounded-lg text-slate-300 hover:bg-slate-800 hover:text-white transition">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path></svg>
+                        <span>Reports</span>
+                    </a>
+                    <a href="settings.html" class="flex items-center space-x-3 py-2.5 px-4 rounded-lg text-slate-300 hover:bg-slate-800 hover:text-white transition">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"></path></svg>
+                        <span>Settings</span>
+                    </a>
                 </nav>
             </div>
             
-            <div class="p-5 border-t border-slate-800">
-                <button onclick="supabaseClient.auth.signOut().then(() => window.location.href='login.html')" class="w-full bg-red-600 text-sm py-2 rounded text-white hover:bg-red-700">Logout</button>
+            <div class="p-5 border-t border-slate-800 bg-slate-950/40">
+                <button onclick="supabaseClient.auth.signOut().then(() => window.location.href='login.html')" class="w-full bg-rose-600/20 hover:bg-rose-600 text-rose-300 hover:text-white border border-rose-500/30 text-xs py-2.5 rounded-lg transition font-medium">Sign Out</button>
             </div>
         </aside>
 
         <!-- Main Content -->
         <main class="flex-1 overflow-y-auto p-8">
-            <header class="flex justify-between items-center mb-6">
+            <header class="flex justify-between items-center mb-6 bg-white p-6 rounded-2xl border border-slate-200/80 shadow-sm">
                 <div>
-                    <h2 class="text-2xl font-bold text-gray-800">Student Directory</h2>
-                    <p class="text-sm text-gray-500">Manage records and send parent WhatsApp updates.</p>
+                    <h2 class="text-2xl font-black text-slate-900 tracking-tight">Student Directory</h2>
+                    <p class="text-xs font-medium text-slate-500 mt-1">Manage active enrollments and dispatch parent notices.</p>
                 </div>
-                <button onclick="openModal()" class="bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700 font-medium">+ Add Student</button>
+                <button onclick="openModal()" class="bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white px-5 py-2.5 rounded-xl font-bold text-sm shadow-md transition flex items-center space-x-2">
+                    <span>+ Add Student</span>
+                </button>
             </header>
 
             <!-- Filters -->
             <div class="flex gap-4 mb-6">
-                <input type="text" id="search-input" onkeyup="fetchStudents()" placeholder="Search by name, ID, or phone..." class="p-2 border rounded-md w-72 outline-none focus:ring-2 focus:ring-blue-500">
-                <select id="class-filter" onchange="fetchStudents()" class="p-2 border rounded-md outline-none focus:ring-2 focus:ring-blue-500">
+                <input type="text" id="search-input" onkeyup="fetchStudents()" placeholder="Search student name, ID, or phone..." class="p-3 border border-slate-200 rounded-xl w-80 text-sm outline-none focus:ring-2 focus:ring-blue-500 bg-white shadow-xs">
+                <select id="class-filter" onchange="fetchStudents()" class="p-3 border border-slate-200 rounded-xl text-sm outline-none focus:ring-2 focus:ring-blue-500 bg-white shadow-xs">
                     <option value="">All Classes</option>
                     <option value="Nursery">Nursery</option>
                     <option value="Prep">Prep</option>
@@ -62,20 +88,20 @@
             </div>
 
             <!-- Table -->
-            <div class="bg-white rounded-lg shadow-sm border border-gray-200 overflow-hidden">
+            <div class="bg-white rounded-2xl shadow-sm border border-slate-200/80 overflow-hidden">
                 <table class="w-full text-left border-collapse">
-                    <thead class="bg-gray-100 text-xs font-semibold text-gray-600 uppercase">
+                    <thead class="bg-slate-50 text-[11px] font-bold text-slate-400 uppercase tracking-wider border-b border-slate-100">
                         <tr>
-                            <th class="p-4">ID</th>
-                            <th class="p-4">Name</th>
-                            <th class="p-4">Class</th>
+                            <th class="p-4">Student ID</th>
+                            <th class="p-4">Full Name</th>
+                            <th class="p-4">Grade Class</th>
                             <th class="p-4">Parent / Guardian</th>
-                            <th class="p-4">WhatsApp</th>
-                            <th class="p-4">Actions</th>
+                            <th class="p-4">WhatsApp Contact</th>
+                            <th class="p-4 text-center">Actions</th>
                         </tr>
                     </thead>
-                    <tbody id="student-table-body" class="divide-y divide-gray-200 text-sm">
-                        <!-- Dynamic content -->
+                    <tbody id="student-table-body" class="divide-y divide-slate-100 text-sm">
+                        <!-- Dynamic Content -->
                     </tbody>
                 </table>
             </div>
@@ -83,39 +109,39 @@
     </div>
 
     <!-- Modal Form -->
-    <div id="modal" class="fixed inset-0 bg-black/50 hidden items-center justify-center p-4">
-        <div class="bg-white rounded-lg w-full max-w-lg p-6 space-y-4">
-            <h3 class="text-xl font-bold text-gray-800">Add Student</h3>
+    <div id="modal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-xs hidden items-center justify-center p-4 z-50">
+        <div class="bg-white rounded-2xl w-full max-w-lg p-6 space-y-4 shadow-2xl border border-slate-100">
+            <h3 class="text-xl font-bold text-slate-800">Enroll New Student</h3>
             <form id="student-form" class="space-y-3">
                 <div class="grid grid-cols-2 gap-3">
                     <div>
-                        <label class="block text-xs font-medium text-gray-700">Student ID *</label>
-                        <input type="text" id="student_id" required class="w-full p-2 border rounded mt-1">
+                        <label class="block text-xs font-semibold text-slate-600">Student ID *</label>
+                        <input type="text" id="student_id" required class="w-full p-2.5 border border-slate-200 rounded-lg mt-1 text-sm outline-none focus:ring-2 focus:ring-blue-500">
                     </div>
                     <div>
-                        <label class="block text-xs font-medium text-gray-700">Full Name *</label>
-                        <input type="text" id="name" required class="w-full p-2 border rounded mt-1">
+                        <label class="block text-xs font-semibold text-slate-600">Full Name *</label>
+                        <input type="text" id="name" required class="w-full p-2.5 border border-slate-200 rounded-lg mt-1 text-sm outline-none focus:ring-2 focus:ring-blue-500">
                     </div>
                     <div>
-                        <label class="block text-xs font-medium text-gray-700">Class *</label>
-                        <input type="text" id="class_name" required class="w-full p-2 border rounded mt-1">
+                        <label class="block text-xs font-semibold text-slate-600">Class *</label>
+                        <input type="text" id="class_name" required class="w-full p-2.5 border border-slate-200 rounded-lg mt-1 text-sm outline-none focus:ring-2 focus:ring-blue-500">
                     </div>
                     <div>
-                        <label class="block text-xs font-medium text-gray-700">Section</label>
-                        <input type="text" id="section" class="w-full p-2 border rounded mt-1">
+                        <label class="block text-xs font-semibold text-slate-600">Section</label>
+                        <input type="text" id="section" class="w-full p-2.5 border border-slate-200 rounded-lg mt-1 text-sm outline-none focus:ring-2 focus:ring-blue-500">
                     </div>
                     <div>
-                        <label class="block text-xs font-medium text-gray-700">Parent Name</label>
-                        <input type="text" id="parent_name" class="w-full p-2 border rounded mt-1">
+                        <label class="block text-xs font-semibold text-slate-600">Parent Name</label>
+                        <input type="text" id="parent_name" class="w-full p-2.5 border border-slate-200 rounded-lg mt-1 text-sm outline-none focus:ring-2 focus:ring-blue-500">
                     </div>
                     <div>
-                        <label class="block text-xs font-medium text-gray-700">WhatsApp Phone *</label>
-                        <input type="text" id="whatsapp" required placeholder="e.g. 923104241477" class="w-full p-2 border rounded mt-1">
+                        <label class="block text-xs font-semibold text-slate-600">WhatsApp Phone *</label>
+                        <input type="text" id="whatsapp" required placeholder="e.g. 923104241477" class="w-full p-2.5 border border-slate-200 rounded-lg mt-1 text-sm outline-none focus:ring-2 focus:ring-blue-500">
                     </div>
                 </div>
-                <div class="flex justify-end space-x-2 pt-4">
-                    <button type="button" onclick="closeModal()" class="px-4 py-2 border rounded text-gray-600">Cancel</button>
-                    <button type="submit" class="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700">Save Student</button>
+                <div class="flex justify-end space-x-2 pt-4 border-t border-slate-100">
+                    <button type="button" onclick="closeModal()" class="px-4 py-2 border rounded-lg text-slate-600 text-sm font-medium">Cancel</button>
+                    <button type="submit" class="px-5 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 text-sm font-bold shadow-md">Save Record</button>
                 </div>
             </form>
         </div>
@@ -156,15 +182,16 @@
 
                 filtered.forEach(s => {
                     const row = document.createElement('tr');
+                    row.className = "hover:bg-slate-50/80 transition";
                     row.innerHTML = `
-                        <td class="p-4 font-mono text-xs font-semibold text-gray-600">${s.student_id}</td>
-                        <td class="p-4 font-medium text-gray-900">${s.name}</td>
-                        <td class="p-4 text-gray-600">${s.class} ${s.section ? '(' + s.section + ')' : ''}</td>
-                        <td class="p-4 text-gray-600">${s.parent_name || 'N/A'}</td>
-                        <td class="p-4 text-gray-600">${s.whatsapp}</td>
-                        <td class="p-4 space-x-2">
-                            <button onclick="sendWhatsApp('${s.whatsapp}', '${s.name}')" class="bg-emerald-600 text-white text-xs px-2.5 py-1 rounded hover:bg-emerald-700">WhatsApp</button>
-                            <button onclick="deleteStudent('${s.id}')" class="bg-red-600 text-white text-xs px-2.5 py-1 rounded hover:bg-red-700">Delete</button>
+                        <td class="p-4 font-mono text-xs font-bold text-slate-500">${s.student_id}</td>
+                        <td class="p-4 font-bold text-slate-900">${s.name}</td>
+                        <td class="p-4"><span class="bg-indigo-50 border border-indigo-200 text-indigo-700 px-2.5 py-1 rounded-lg text-xs font-bold">${s.class} ${s.section ? '(' + s.section + ')' : ''}</span></td>
+                        <td class="p-4 text-slate-600 font-medium">${s.parent_name || 'N/A'}</td>
+                        <td class="p-4 font-mono text-slate-600 text-xs">${s.whatsapp}</td>
+                        <td class="p-4 text-center space-x-2">
+                            <button onclick="sendWhatsApp('${s.whatsapp}', '${s.name}')" class="bg-emerald-500 hover:bg-emerald-600 text-white text-xs px-3 py-1.5 rounded-lg font-bold shadow-xs transition">WhatsApp</button>
+                            <button onclick="deleteStudent('${s.id}')" class="bg-rose-50 hover:bg-rose-100 text-rose-600 border border-rose-200 text-xs px-3 py-1.5 rounded-lg font-bold transition">Delete</button>
                         </td>
                     `;
                     tbody.appendChild(row);
@@ -173,12 +200,9 @@
         }
 
         function sendWhatsApp(phone, studentName) {
-            if (!phone) {
-                alert("No WhatsApp number provided.");
-                return;
-            }
+            if (!phone) { alert("No WhatsApp number provided."); return; }
             const cleanPhone = phone.replace(/[^0-9]/g, '');
-            const msg = encodeURIComponent(`ACADEMY NOTICE - ${schoolSettings.school_name || 'Al Arqam Academy'}\nDear Parent,\nThis is regarding student: ${studentName}.\nPhone: ${schoolSettings.phone || ''}`);
+            const msg = encodeURIComponent(`ACADEMY NOTICE - ${schoolSettings.school_name || 'Al Arqam Academy'}\nDear Parent,\nThis notice concerns student: ${studentName}.`);
             window.open(`https://wa.me/${cleanPhone}?text=${msg}`, '_blank');
         }
 
@@ -194,12 +218,8 @@
             };
 
             const { error } = await supabaseClient.from('students').insert([payload]);
-            if (error) {
-                alert('Error: ' + error.message);
-            } else {
-                closeModal();
-                fetchStudents();
-            }
+            if (error) { alert('Error: ' + error.message); } 
+            else { closeModal(); fetchStudents(); }
         });
 
         async function deleteStudent(id) {
