@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Courses & Classes - Al Arqam Academy</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="config.js"></script>
+</head>
+<body class="bg-slate-50 font-sans text-slate-800">
+    <script>checkAuth();</script>
+
+    <div class="flex h-screen overflow-hidden">
+        <!-- Sidebar Navigation -->
+        <aside class="w-64 bg-slate-900 text-white flex flex-col justify-between shrink-0 shadow-xl border-r border-slate-800">
+            <div class="p-5">
+                <div class="flex items-center space-x-3 mb-8 bg-slate-800/60 p-3 rounded-xl border border-slate-700/50">
+                    <img id="sidebar-logo" src="Academy Asset/Logo.jpg" alt="Academy Logo" class="w-10 h-10 object-contain rounded-lg bg-white p-1 shadow-md" onerror="this.style.display='none'">
+                    <div>
+                        <h1 id="sidebar-title" class="text-base font-bold tracking-wide text-white truncate max-w-[130px]">Al Arqam Academy</h1>
+                        <span class="text-[10px] text-emerald-400 font-semibold bg-emerald-500/10 px-2 py-0.5 rounded-full border border-emerald-500/20">Active Portal</span>
+                    </div>
+                </div>
+                
+                <nav class="space-y-1.5">
+                    <a href="index.html" class="flex items-center space-x-3 py-2.5 px-4 rounded-lg text-slate-300 hover:bg-slate-800 hover:text-white transition">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 00-1-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"></path></svg>
+                        <span>Dashboard</span>
+                    </a>
+                    <a href="courses.html" class="flex items-center space-x-3 py-2.5 px-4 rounded-lg bg-gradient-to-r from-blue-600 to-indigo-600 text-white font-medium shadow-md">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path></svg>
+                        <span>Courses & Classes</span>
+                    </a>
+                    <a href="students.html" class="flex items-center space-x-3 py-2.5 px-4 rounded-lg text-slate-300 hover:bg-slate-800 hover:text-white transition">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"></path></svg>
+                        <span>Students</span>
+                    </a>
+                    <a href="teachers.html" class="flex items-center space-x-3 py-2.5 px-4 rounded-lg text-slate-300 hover:bg-slate-800 hover:text-white transition">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9a2 2 0 00-2-2h-2m-4-3H9M7 16h6M7 8h6v4H7V8z"></path></svg>
+                        <span>Teachers</span>
+                    </a>
+                    <a href="attendance.html" class="flex items-center space-x-3 py-2.5 px-4 rounded-lg text-slate-300 hover:bg-slate-800 hover:text-white transition">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"></path></svg>
+                        <span>Attendance</span>
+                    </a>
+                    <a href="fees.html" class="flex items-center space-x-3 py-2.5 px-4 rounded-lg text-slate-300 hover:bg-slate-800 hover:text-white transition">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 9V7a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2m2 4h10a2 2 0 002-2v-6a2 2 0 00-2-2H9a2 2 0 00-2 2v6a2 2 0 002 2zm7-5a2 2 0 11-4 0 2 2 0 014 0z"></path></svg>
+                        <span>Fees & Receipts</span>
+                    </a>
+                    <a href="reports.html" class="flex items-center space-x-3 py-2.5 px-4 rounded-lg text-slate-300 hover:bg-slate-800 hover:text-white transition">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path></svg>
+                        <span>Reports</span>
+                    </a>
+                    <a href="settings.html" class="flex items-center space-x-3 py-2.5 px-4 rounded-lg text-slate-300 hover:bg-slate-800 hover:text-white transition">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"></path></svg>
+                        <span>Settings</span>
+                    </a>
+                </nav>
+            </div>
+            
+            <div class="p-5 border-t border-slate-800 bg-slate-950/40">
+                <button onclick="supabaseClient.auth.signOut().then(() => window.location.href='login.html')" class="w-full bg-rose-600/20 hover:bg-rose-600 text-rose-300 hover:text-white border border-rose-500/30 text-xs py-2.5 rounded-lg transition font-medium">Sign Out</button>
+            </div>
+        </aside>
+
+        <!-- Main Content Area -->
+        <main class="flex-1 overflow-y-auto p-8">
+            <header class="flex justify-between items-center mb-6 bg-white p-6 rounded-2xl border border-slate-200/80 shadow-sm">
+                <div>
+                    <h2 class="text-2xl font-black text-slate-900 tracking-tight">Course & Class Administration</h2>
+                    <p class="text-xs font-medium text-slate-500 mt-1">Configure new subject programs, sections, and active academic terms.</p>
+                </div>
+            </header>
+
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-8">
+                <!-- Form 1: Add New Course -->
+                <div class="bg-white rounded-2xl border border-slate-200/80 shadow-sm p-6">
+                    <h3 class="text-base font-bold text-slate-800 mb-4 border-b pb-3">Create New Course / Program</h3>
+                    <form id="add-course-form" onsubmit="handleCourseSubmit(event)" class="space-y-4">
+                        <div>
+                            <label class="block text-xs font-bold uppercase text-slate-500 mb-1">Course Name</label>
+                            <input type="text" id="course_name" required placeholder="e.g., Computer Science" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:border-indigo-500">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-bold uppercase text-slate-500 mb-1">Course Code</label>
+                            <input type="text" id="course_code" required placeholder="e.g., CS-101" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:border-indigo-500">
+                        </div>
+                        <button type="submit" class="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-2.5 rounded-xl text-xs transition shadow-md">Add Course</button>
+                    </form>
+                </div>
+
+                <!-- Form 2: Add New Class -->
+                <div class="bg-white rounded-2xl border border-slate-200/80 shadow-sm p-6">
+                    <h3 class="text-base font-bold text-slate-800 mb-4 border-b pb-3">Create Class / Section</h3>
+                    <form id="add-class-form" onsubmit="handleClassSubmit(event)" class="space-y-4">
+                        <div>
+                            <label class="block text-xs font-bold uppercase text-slate-500 mb-1">Select Parent Course</label>
+                            <select id="parent_course_id" required class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:border-indigo-500">
+                                <option value="">-- Choose Course --</option>
+                            </select>
+                        </div>
+                        <div class="grid grid-cols-2 gap-4">
+                            <div>
+                                <label class="block text-xs font-bold uppercase text-slate-500 mb-1">Class / Section</label>
+                                <input type="text" id="class_name" required placeholder="e.g., Grade 6 - Batch A" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:border-indigo-500">
+                            </div>
+                            <div>
+                                <label class="block text-xs font-bold uppercase text-slate-500 mb-1">Academic Term</label>
+                                <input type="text" id="academic_year" required placeholder="2026-2027" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:border-indigo-500">
+                            </div>
+                        </div>
+                        <button type="submit" class="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-2.5 rounded-xl text-xs transition shadow-md">Create Class Section</button>
+                    </form>
+                </div>
+            </div>
+
+            <!-- Active Offerings Table -->
+            <div class="bg-white rounded-2xl border border-slate-200/80 shadow-sm p-6">
+                <h3 class="text-base font-bold text-slate-800 mb-4 border-b pb-3">Existing Academic Offerings</h3>
+                <div class="overflow-x-auto">
+                    <table class="w-full text-left text-xs">
+                        <thead class="bg-slate-50 font-bold text-slate-400 uppercase tracking-wider">
+                            <tr>
+                                <th class="p-3">Course Name</th>
+                                <th class="p-3">Course Code</th>
+                                <th class="p-3">Class / Section</th>
+                                <th class="p-3">Term</th>
+                            </tr>
+                        </thead>
+                        <tbody id="course-table-body" class="divide-y divide-slate-100">
+                            <!-- Dynamic Content -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        let schoolSettings = {};
+
+        async function init() {
+            // Load School Settings
+            const { data } = await supabaseClient.from('school_settings').select('*').eq('id', 1).single();
+            if (data) {
+                schoolSettings = data;
+                document.getElementById('sidebar-title').innerText = data.school_name || 'Al Arqam Academy';
+                if (data.logo_data && data.logo_data.trim() !== '') {
+                    document.getElementById('sidebar-logo').src = data.logo_data;
+                }
+            }
+            await fetchCourses();
+            await fetchClassesTable();
+        }
+
+        async function fetchCourses() {
+            const { data: courses, error } = await supabaseClient.from('courses').select('*');
+            if (!error && courses) {
+                const select = document.getElementById('parent_course_id');
+                select.innerHTML = '<option value="">-- Choose Course --</option>';
+                courses.forEach(c => {
+                    const opt = document.createElement('option');
+                    opt.value = c.id;
+                    opt.textContent = `${c.course_name} (${c.course_code})`;
+                    select.appendChild(opt);
+                });
+            }
+        }
+
+        async function handleCourseSubmit(e) {
+            e.preventDefault();
+            const course_name = document.getElementById('course_name').value;
+            const course_code = document.getElementById('course_code').value;
+
+            const { error } = await supabaseClient.from('courses').insert([{ course_name, course_code }]);
+            if (error) {
+                alert('Error creating course: ' + error.message);
+            } else {
+                alert('Course added successfully!');
+                document.getElementById('add-course-form').reset();
+                fetchCourses();
+            }
+        }
+
+        async function handleClassSubmit(e) {
+            e.preventDefault();
+            const course_id = document.getElementById('parent_course_id').value;
+            const class_name = document.getElementById('class_name').value;
+            const academic_year = document.getElementById('academic_year').value;
+
+            const { error } = await supabaseClient.from('classes').insert([{ course_id, class_name, academic_year }]);
+            if (error) {
+                alert('Error creating class section: ' + error.message);
+            } else {
+                alert('Class created successfully!');
+                document.getElementById('add-class-form').reset();
+                fetchClassesTable();
+            }
+        }
+
+        async function fetchClassesTable() {
+            const { data: classes, error } = await supabaseClient.from('classes').select('*, courses(course_name, course_code)');
+            const tbody = document.getElementById('course-table-body');
+            tbody.innerHTML = '';
+
+            if (classes && classes.length > 0) {
+                classes.forEach(cls => {
+                    const row = document.createElement('tr');
+                    row.className = "hover:bg-slate-50 transition";
+                    row.innerHTML = `
+                        <td class="p-3 font-bold text-slate-800">${cls.courses?.course_name || 'N/A'}</td>
+                        <td class="p-3 text-slate-500 font-mono font-bold">${cls.courses?.course_code || 'N/A'}</td>
+                        <td class="p-3 font-bold text-indigo-600">${cls.class_name}</td>
+                        <td class="p-3 text-slate-500">${cls.academic_year}</td>
+                    `;
+                    tbody.appendChild(row);
+                });
+            } else {
+                tbody.innerHTML = `<tr><td colspan="4" class="p-4 text-center text-slate-400">No courses or classes registered yet.</td></tr>`;
+            }
+        }
+
+        init();
+    </script>
+</body>
+</html>
