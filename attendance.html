@@ -82,17 +82,25 @@
             <!-- Toolbar -->
             <div class="flex justify-between items-center mb-4">
                 <div id="student-filters" class="flex gap-4">
-                    <select id="class-select" onchange="loadAttendance()" class="p-2.5 border border-slate-200 rounded-xl text-sm outline-none bg-white">
-                        <option value="">All Classes</option>
-                        <option value="Nursery">Nursery</option>
-                        <option value="Prep">Prep</option>
-                        <option value="Class 1">Class 1</option>
-                        <option value="Class 2">Class 2</option>
-                        <option value="Class 3">Class 3</option>
-                        <option value="Class 4">Class 4</option>
-                        <option value="Class 5">Class 5</option>
-                    </select>
+                    <!-- Searchable Class Dropdown Component -->
+                    <div class="relative w-64" id="class-dropdown-wrapper">
+                        <input type="hidden" id="class-select" value="">
+                        <button type="button" onclick="toggleClassDropdown()" id="class-dropdown-btn" class="w-full p-2.5 border border-slate-200 rounded-xl text-sm font-medium bg-white flex justify-between items-center focus:outline-none focus:ring-2 focus:ring-blue-500 shadow-xs">
+                            <span id="class-dropdown-label" class="truncate text-slate-700">All Classes</span>
+                            <svg class="w-4 h-4 text-slate-400 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                        </button>
+                        
+                        <div id="class-dropdown-menu" class="hidden absolute z-30 mt-1 w-full bg-white border border-slate-200 rounded-xl shadow-xl overflow-hidden">
+                            <div class="p-2 border-b border-slate-100 bg-slate-50">
+                                <input type="text" id="class-search-input" onkeyup="filterClassOptions()" placeholder="Search class..." class="w-full p-2 border border-slate-200 rounded-lg text-xs bg-white outline-none focus:border-blue-500">
+                            </div>
+                            <ul id="class-dropdown-options" class="max-h-48 overflow-y-auto text-sm divide-y divide-slate-50">
+                                <!-- Options dynamically injected -->
+                            </ul>
+                        </div>
+                    </div>
                 </div>
+
                 <div class="space-x-2">
                     <button onclick="markAll('Present')" class="bg-emerald-50 text-emerald-700 border border-emerald-200 px-4 py-2 rounded-xl text-xs font-bold hover:bg-emerald-100 transition">Mark All Present</button>
                     <button onclick="markAll('Absent')" class="bg-rose-50 text-rose-700 border border-rose-200 px-4 py-2 rounded-xl text-xs font-bold hover:bg-rose-100 transition">Mark All Absent</button>
@@ -124,6 +132,7 @@
         let currentTab = 'students';
         let schoolSettings = {};
         let activeRecords = [];
+        let availableClasses = [];
 
         async function init() {
             document.getElementById('attendance-date').valueAsDate = new Date();
@@ -135,8 +144,72 @@
                     document.getElementById('sidebar-logo').src = data.logo_data;
                 }
             }
+            await populateClassDropdown();
             loadAttendance();
         }
+
+        // Searchable Dropdown Logic
+        async function populateClassDropdown() {
+            const { data: classesData } = await supabaseClient.from('classes').select('class_name');
+            const fallbackClasses = ["Nursery", "Prep", "Class 1", "Class 2", "Class 3", "Class 4", "Class 5"];
+            
+            if (classesData && classesData.length > 0) {
+                availableClasses = Array.from(new Set(classesData.map(c => c.class_name))).sort();
+            } else {
+                availableClasses = fallbackClasses;
+            }
+
+            renderClassOptions(availableClasses);
+        }
+
+        function renderClassOptions(classesList) {
+            const listContainer = document.getElementById('class-dropdown-options');
+            listContainer.innerHTML = '';
+
+            // Default 'All Classes' option
+            const defaultLi = document.createElement('li');
+            defaultLi.className = "px-4 py-2 hover:bg-slate-100 cursor-pointer text-xs font-semibold text-slate-600 transition";
+            defaultLi.innerText = "All Classes";
+            defaultLi.onclick = () => selectClassOption('', 'All Classes');
+            listContainer.appendChild(defaultLi);
+
+            classesList.forEach(cls => {
+                const li = document.createElement('li');
+                li.className = "px-4 py-2 hover:bg-slate-100 cursor-pointer text-xs font-medium text-slate-700 transition";
+                li.innerText = cls;
+                li.onclick = () => selectClassOption(cls, cls);
+                listContainer.appendChild(li);
+            });
+        }
+
+        function toggleClassDropdown() {
+            const menu = document.getElementById('class-dropdown-menu');
+            menu.classList.toggle('hidden');
+            if (!menu.classList.contains('hidden')) {
+                document.getElementById('class-search-input').focus();
+            }
+        }
+
+        function filterClassOptions() {
+            const query = document.getElementById('class-search-input').value.toLowerCase();
+            const filtered = availableClasses.filter(c => c.toLowerCase().includes(query));
+            renderClassOptions(filtered);
+        }
+
+        function selectClassOption(val, label) {
+            document.getElementById('class-select').value = val;
+            document.getElementById('class-dropdown-label').innerText = label;
+            document.getElementById('class-dropdown-menu').classList.add('hidden');
+            loadAttendance();
+        }
+
+        // Close dropdown when clicking outside
+        document.addEventListener('click', function(e) {
+            const wrapper = document.getElementById('class-dropdown-wrapper');
+            if (wrapper && !wrapper.contains(e.target)) {
+                document.getElementById('class-dropdown-menu').classList.add('hidden');
+            }
+        });
 
         function switchTab(tab) {
             currentTab = tab;
